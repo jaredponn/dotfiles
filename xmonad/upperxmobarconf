@@ -1,12 +1,12 @@
 Config { 
 
    -- appearance
-     font =         "xft:Bitstream Vera Sans Mono:size=9:bold:antialias=true"
-   , bgColor =      "black"
-   , fgColor =      "#646464"
+     font =         "xft:Ubuntu Mono:size=9:bold:antialias=true"
+   , bgColor =      "#282a36"
+   , fgColor =      "#f8f8f2"
    , position =     Top
    , border =       BottomB
-   , borderColor =  "#646464"
+   , borderColor =  "#44475a"
 
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
@@ -38,52 +38,52 @@ Config {
    , commands = 
 
         -- weather monitor
-        [ Run Weather "RJTT" [ "--template", "<skyCondition> | <fc=#4682B4><tempC></fc>°C | <fc=#4682B4><rh></fc>% | <fc=#4682B4><pressure></fc>hPa"
+        [ Run Weather "RJTT" [ "--template", "<skyCondition> | <fc=#f8f8f2><tempC></fc>°C | <fc=#f8f8f2><rh></fc>% | <fc=#f8f8f2><pressure></fc>hPa"
                              ] 36000
 
         -- network activity monitor (dynamic interface resolution)
         , Run DynNetwork     [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
                              , "--Low"      , "1000"       -- units: B/s
                              , "--High"     , "5000"       -- units: B/s
-                             , "--low"      , "darkgreen"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkred"
+                             , "--low"      , "#50fa7b"
+                             , "--normal"   , "#ffb86c"
+                             , "--high"     , "#ff5555"
                              ] 10
 
         -- cpu activity monitor
         , Run MultiCpu       [ "--template" , "Cpu: <total0>%|<total1>%"
                              , "--Low"      , "50"         -- units: %
                              , "--High"     , "85"         -- units: %
-                             , "--low"      , "darkgreen"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkred"
+                             , "--low"      , "#50fa7b"
+                             , "--normal"   , "#ffb86c"
+                             , "--high"     , "#ff5555"
                              ] 10
 
         -- cpu core temperature monitor
         , Run CoreTemp       [ "--template" , "CoreTemp: <core0>°C|<core1>°C"
                              , "--Low"      , "70"        -- units: °C
                              , "--High"     , "80"        -- units: °C
-                             , "--low"      , "darkgreen"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkred"
+                             , "--low"      , "#50fa7b"
+                             , "--normal"   , "#ffb86c"
+                             , "--high"     , "#ff5555"
                              ] 50
                           
         -- memory usage monitor
         , Run Memory         [ "--template" ,"Mem: <usedratio>%"
                              , "--Low"      , "20"        -- units: %
                              , "--High"     , "90"        -- units: %
-                             , "--low"      , "darkgreen"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkred"
+                             , "--low"      , "#50fa7b"
+                             , "--normal"   , "#ffb86c"
+                             , "--high"     , "#ff5555"
                              ] 10
 
         -- battery monitor
         , Run Battery        [ "--template" , "Batt: <acstatus>"
                              , "--Low"      , "10"        -- units: %
                              , "--High"     , "80"        -- units: %
-                             , "--low"      , "darkred"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkgreen"
+                             , "--low"      , "#ff5555"
+                             , "--normal"   , "#ffb86c"
+                             , "--high"     , "#50fa7b"
 
                              , "--" -- battery specific options
                                        -- discharging status
@@ -96,11 +96,11 @@ Config {
 
         -- time and date indicator 
         --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
-        , Run Date           "<fc=#ABABAB>%F (%a) %T</fc>" "date" 10
+        , Run Date           "<fc=#f8f8f2>%F (%a) %T</fc>" "date" 10
 
         -- keyboard layout indicator
-        , Run Kbd            [ ("us(dvorak)" , "<fc=#00008B>DV</fc>")
-                             , ("us"         , "<fc=#8B0000>US</fc>")
+        , Run Kbd            [ ("us(dvorak)" , "<fc=#f8f8f2>DV</fc>")
+                             , ("us"         , "<fc=#f8f8f2>US</fc>")
                              ]
         ]
    }

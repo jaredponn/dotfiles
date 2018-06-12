@@ -1,12 +1,12 @@
 Config { 
 
    -- appearance
-     font =         "xft:Bitstream Vera Sans Mono:size=9:bold:antialias=true"
-   , bgColor =      "black"
-   , fgColor =      "#646464"
+     font =         "xft:Ubuntu Mono:size=9:bold:antialias=true"
+   , bgColor =      "#282a36"
+   , fgColor =      "#f8f8f2"
    , position =     Bottom
    , border =       TopB
-   , borderColor =  "#646464"
+   , borderColor =  "#44475a"
 
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text

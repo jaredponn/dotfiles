@@ -1,11 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/home/jared/Programs/SpaceGame/builds'
-let g:netrw_dirhist_2='/home/jared/Programs/SpaceGame/builds/demo@exe'
-let g:netrw_dirhist_3='/home/jared/Programs/SpaceGame/builds'
-let g:netrw_dirhist_4='/home/jared/Programs/SpaceGame/src'
-let g:netrw_dirhist_5='/home/jared/Programs/Fly-Plane-Fly/src'
-let g:netrw_dirhist_6='/home/jared/Programs/SpaceGame/src'
-let g:netrw_dirhist_7='/home/jared/.xmonad/.stack-work'
-let g:netrw_dirhist_8='/home/jared/.xmonad'
-let g:netrw_dirhist_9='/home/jared/.config/sakura'
+let g:netrw_dirhist_cnt =0

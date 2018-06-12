@@ -70,7 +70,7 @@ main = do
             , logHook = dynamicLogWithPP xmobarPP
                 {
                   ppOutput = hPutStrLn xmobarHandle
-                , ppTitle = xmobarColor "green" "" . shorten 50
+                , ppTitle = xmobarColor "#50fa7b" "" . shorten 50
                 , ppLayout = (\_ -> "")
                 }
         , focusedBorderColor = focdBord
