@@ -1,0 +1,27 @@
+Configuring dbus-0.10.15...
+Preprocessing library for dbus-0.10.15..
+Building library for dbus-0.10.15..
+
+[;1mlib/DBus/Client.hs:4:14: [;1m[35mwarning:[0m[0m[;1m[0m[0m[;1m
+    -XOverlappingInstances is deprecated: instead use per-instance pragmas OVERLAPPING/OVERLAPPABLE/OVERLAPS[0m[0m
+[;1m[34m  |[0m[0m
+[;1m[34m4 |[0m[0m {-# LANGUAGE [;1m[35mOverlappingInstances[0m[0m #-}
+[;1m[34m  |[0m[0m[;1m[35m              ^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[0m[0m[1 of 9] Compiling DBus.Internal.Address ( lib/DBus/Internal/Address.hs, .stack-work/dist/x86_64-linux-ncurses6/Cabal-2.0.1.0/build/DBus/Internal/Address.o )
+[2 of 9] Compiling DBus.Internal.Types ( lib/DBus/Internal/Types.hs, .stack-work/dist/x86_64-linux-ncurses6/Cabal-2.0.1.0/build/DBus/Internal/Types.o )
+[3 of 9] Compiling DBus.Internal.Message ( lib/DBus/Internal/Message.hs, .stack-work/dist/x86_64-linux-ncurses6/Cabal-2.0.1.0/build/DBus/Internal/Message.o )
+[4 of 9] Compiling DBus.Internal.Wire ( lib/DBus/Internal/Wire.hs, .stack-work/dist/x86_64-linux-ncurses6/Cabal-2.0.1.0/build/DBus/Internal/Wire.o )
+[5 of 9] Compiling DBus             ( lib/DBus.hs, .stack-work/dist/x86_64-linux-ncurses6/Cabal-2.0.1.0/build/DBus.o )
+[6 of 9] Compiling DBus.Introspection ( lib/DBus/Introspection.hs, .stack-work/dist/x86_64-linux-ncurses6/Cabal-2.0.1.0/build/DBus/Introspection.o )
+[7 of 9] Compiling DBus.Transport   ( lib/DBus/Transport.hs, .stack-work/dist/x86_64-linux-ncurses6/Cabal-2.0.1.0/build/DBus/Transport.o )
+[8 of 9] Compiling DBus.Socket      ( lib/DBus/Socket.hs, .stack-work/dist/x86_64-linux-ncurses6/Cabal-2.0.1.0/build/DBus/Socket.o )
+[9 of 9] Compiling DBus.Client      ( lib/DBus/Client.hs, .stack-work/dist/x86_64-linux-ncurses6/Cabal-2.0.1.0/build/DBus/Client.o )
+
+[;1mlib/DBus/Client.hs:751:55: [;1m[35mwarning:[0m[0m[;1m [[;1m[35m-Wdeprecations[0m[0m[;1m][0m[0m[;1m
+    In the use of ‘insertWith'’ (imported from Data.Map):
+    Deprecated: "As of version 0.5, replaced by 'Data.Map.Strict.insertWith'."[0m[0m
+[;1m[34m    |[0m[0m
+[;1m[34m751 |[0m[0m     addMethod m (Method iface name inSig outSig cb) = [;1m[35mData.Map.insertWith'[0m[0m
+[;1m[34m    |[0m[0m[;1m[35m                                                       ^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[0m[0mInstalling library in /home/jared/.stack/snapshots/x86_64-linux-ncurses6/lts-11.13/8.2.2/lib/x86_64-linux-ghc-8.2.2/dbus-0.10.15-76BFULOhPJyIuNE5fh63YO
+Registering library for dbus-0.10.15..

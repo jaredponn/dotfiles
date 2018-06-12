@@ -1,0 +1,9 @@
+Configuring timezone-olson-0.1.9...
+Preprocessing library for timezone-olson-0.1.9..
+Building library for timezone-olson-0.1.9..
+[1 of 4] Compiling Data.Time.LocalTime.TimeZone.Olson.Types ( Data/Time/LocalTime/TimeZone/Olson/Types.hs, .stack-work/dist/x86_64-linux-ncurses6/Cabal-2.0.1.0/build/Data/Time/LocalTime/TimeZone/Olson/Types.o )
+[2 of 4] Compiling Data.Time.LocalTime.TimeZone.Olson.Render ( Data/Time/LocalTime/TimeZone/Olson/Render.hs, .stack-work/dist/x86_64-linux-ncurses6/Cabal-2.0.1.0/build/Data/Time/LocalTime/TimeZone/Olson/Render.o )
+[3 of 4] Compiling Data.Time.LocalTime.TimeZone.Olson.Parse ( Data/Time/LocalTime/TimeZone/Olson/Parse.hs, .stack-work/dist/x86_64-linux-ncurses6/Cabal-2.0.1.0/build/Data/Time/LocalTime/TimeZone/Olson/Parse.o )
+[4 of 4] Compiling Data.Time.LocalTime.TimeZone.Olson ( Data/Time/LocalTime/TimeZone/Olson.hs, .stack-work/dist/x86_64-linux-ncurses6/Cabal-2.0.1.0/build/Data/Time/LocalTime/TimeZone/Olson.o )
+Installing library in /home/jared/.stack/snapshots/x86_64-linux-ncurses6/lts-11.13/8.2.2/lib/x86_64-linux-ghc-8.2.2/timezone-olson-0.1.9-B1qgrUSENhR4YHsL9bNmWK
+Registering library for timezone-olson-0.1.9..

@@ -1,0 +1,7 @@
+Configuring timezone-series-0.1.9...
+Preprocessing library for timezone-series-0.1.9..
+Building library for timezone-series-0.1.9..
+[1 of 2] Compiling Data.Time.LocalTime.TimeZone.Internal.TimeVersion ( Data/Time/LocalTime/TimeZone/Internal/TimeVersion.hs, .stack-work/dist/x86_64-linux-ncurses6/Cabal-2.0.1.0/build/Data/Time/LocalTime/TimeZone/Internal/TimeVersion.o )
+[2 of 2] Compiling Data.Time.LocalTime.TimeZone.Series ( Data/Time/LocalTime/TimeZone/Series.hs, .stack-work/dist/x86_64-linux-ncurses6/Cabal-2.0.1.0/build/Data/Time/LocalTime/TimeZone/Series.o )
+Installing library in /home/jared/.stack/snapshots/x86_64-linux-ncurses6/lts-11.13/8.2.2/lib/x86_64-linux-ghc-8.2.2/timezone-series-0.1.9-BRvRRWRryOjGgCvbem4I5i
+Registering library for timezone-series-0.1.9..
