@@ -97,6 +97,10 @@ mKeys = [
         , ((modMask, xK_b), spawn myBrowser) -- open browser
         , ((modMask .|. shiftMask, xK_b), spawn $ myBrowser ++ "--private-window")  -- open private instance of browser
 
+        -- volume control
+        , ((0, xK_F11 ), spawn  "amixer set 'Master' 2%-")
+        , ((0, xK_F12 ), spawn "amixer set 'Master' 2%+")
+
     ] where modMask = mod4Mask  -- prefer super
 
 {- Programs -}
