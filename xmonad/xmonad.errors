@@ -1,7 +1,0 @@
-
-xmonad.hs:56:24: warning: [-Wdeprecations]
-    In the use of ‘spacing’ (imported from XMonad.Layout.Spacing):
-    Deprecated: "Use spacingRaw instead."
-   |
-56 |           avoidStruts (spacing 2 $ defaultLayout)) ||| Full
-   |                        ^^^^^^^
