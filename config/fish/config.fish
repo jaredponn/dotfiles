@@ -27,7 +27,7 @@ function fish_prompt
         set_color $fish_color_cwd
         printf '%s' (prompt_pwd)
         set_color normal
-        printf '%s ' (__fish_git_prompt)
+        printf '%s $' (__fish_git_prompt)
        set_color normal
 end
 
@@ -53,7 +53,12 @@ alias zathura "zathura --fork" # v for vim
 alias ghc "stack ghc --" 
 alias ghci "stack ghci" 
 
+# modestly get yt song
+alias getsong "youtube-dl --extract-audio -o '~/Music/bin/%(title)s.%(ext)s' "
+
 set -g fish_key_bindings my_vi_bindings
+
+# adding .local/bin to the path. Needed for Haskell's Stack
 set -gx PATH /home/jared/.local/bin $PATH
 
 
