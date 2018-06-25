@@ -193,7 +193,7 @@ let g:clang_format#auto_format_on_insert_leave = 0
 
 let g:clang_format#style_options = {
             \ "AccessModifierOffset" : -4,
-            \ "AllowShortIfStatementsOnASingleLine" : "true",
             \ "AlwaysBreakTemplateDeclarations" : "true",
             \ "Standard" : "C++11"}
 
+nnoremap <Leader>cd i// -----------------------------------------<CR>//    Sectional Dividers Like This<CR>// -----------------------------------------<CR><esc>kkwv$h
