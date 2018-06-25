@@ -7,7 +7,8 @@ import XMonad.Util.Run        (spawnPipe)
 import XMonad.Util.EZConfig   (additionalKeys)
 import XMonad.Util.SpawnOnce
 
-import Data.List
+import qualified Data.List as L
+import qualified Data.Text as T
 import qualified XMonad.StackSet as W
 
 import XMonad.Layout.Spacing
@@ -92,10 +93,18 @@ mKeys = [
         , ((modMask .|. shiftMask, xK_e), CycleWS.shiftNextScreen)
 
         -- application startup
-        , ((modMask , xK_Return), spawn $ myTerminal ++ "-d \"`xcwd`\"") -- spawn terminal at current directoty
+        , ((modMask , xK_Return), do
+                windowtitle <- getCurrentWindowTitle
+                let (app, path) = span (/= '/') windowtitle
+                    app' = T.unpack .  T.strip . T.pack $ app
+                    path' = T.unpack .  T.strip . T.pack $ path
+                    newterminalspawndir = getNextTerminalPath (app', path')
+                spawn $ myTerminal ++ " -d " ++ newterminalspawndir) -- spawn terminal at current directoty
+
         , ((modMask .|. shiftMask, xK_Return), spawn $ myTerminal ++ "-d ~")  -- spawn terminal at home directotry
         , ((modMask, xK_b), spawn myBrowser) -- open browser
         , ((modMask .|. shiftMask, xK_b), spawn $ myBrowser ++ "--private-window")  -- open private instance of browser
+        , ((modMask, xK_n), spawn $ myTerminal ++ " -x " ++ myMusicPlayer)  -- open ncmpcpp
 
         -- volume control
         , ((0, xK_F11 ), spawn  "amixer set 'Master' 2%-")
@@ -103,9 +112,31 @@ mKeys = [
 
     ] where modMask = mod4Mask  -- prefer super
 
+-- returns the terminal path if the title is one of the following applications
+getNextTerminalPath :: (String, String) -> String
+getNextTerminalPath ("ghci", path) = path
+getNextTerminalPath ("n", path) = path
+getNextTerminalPath ("vim", path) = path
+getNextTerminalPath ("fish", path) = path
+getNextTerminalPath ("clang", path) = path
+getNextTerminalPath ("stack", path) = path
+getNextTerminalPath (_, _) = "~"
+
+-- getting the current window title 
+getCurrentWindowTitle :: X String
+getCurrentWindowTitle = dynamicLogString $ (def PP) { ppCurrent = (\_ -> "")
+                                                    , ppVisible = (\_ -> "")
+                                                    , ppHidden = (\_ -> "")
+                                                    , ppHiddenNoWindows = (\_ -> "")
+                                                    , ppUrgent = (\_ -> "")
+                                                    , ppSep = ""
+                                                    , ppWsSep = ""
+                                                    , ppLayout = (\_ -> "") }
+
 {- Programs -}
 myTerminal = "sakura "
 myBrowser = "firefox "
+myMusicPlayer = "ncmpcpp "
 
 {- Colors -}
 focdBord = "#f8f8f2"
