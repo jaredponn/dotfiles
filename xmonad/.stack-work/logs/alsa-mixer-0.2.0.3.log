@@ -1,7 +1,0 @@
-Configuring alsa-mixer-0.2.0.3...
-Preprocessing library for alsa-mixer-0.2.0.3..
-Building library for alsa-mixer-0.2.0.3..
-[1 of 2] Compiling Sound.ALSA.Mixer.Internal ( .stack-work/dist/x86_64-linux-ncurses6/Cabal-2.0.1.0/build/Sound/ALSA/Mixer/Internal.hs, .stack-work/dist/x86_64-linux-ncurses6/Cabal-2.0.1.0/build/Sound/ALSA/Mixer/Internal.o )
-[2 of 2] Compiling Sound.ALSA.Mixer ( Sound/ALSA/Mixer.hs, .stack-work/dist/x86_64-linux-ncurses6/Cabal-2.0.1.0/build/Sound/ALSA/Mixer.o )
-Installing library in /home/jared/.stack/snapshots/x86_64-linux-ncurses6/lts-11.13/8.2.2/lib/x86_64-linux-ghc-8.2.2/alsa-mixer-0.2.0.3-7KnKdWnxzEFLkX00mHuiiP
-Registering library for alsa-mixer-0.2.0.3..
