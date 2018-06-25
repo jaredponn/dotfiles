@@ -104,7 +104,7 @@ mKeys = [
         , ((modMask .|. shiftMask, xK_Return), spawn $ myTerminal ++ "-d ~")  -- spawn terminal at home directotry
         , ((modMask, xK_b), spawn myBrowser) -- open browser
         , ((modMask .|. shiftMask, xK_b), spawn $ myBrowser ++ "--private-window")  -- open private instance of browser
-        , ((modMask, xK_n), spawn $ myTerminal ++ " -x " ++ myMusicPlayer)  -- open ncmpcpp
+        , ((modMask, xK_n), spawn $ myTerminal ++ " -x " ++ "'" ++ myMusicPlayer ++ "'")  -- open ncmpcpp
 
         -- volume control
         , ((0, xK_F11 ), spawn  "amixer set 'Master' 2%-")
@@ -136,7 +136,7 @@ getCurrentWindowTitle = dynamicLogString $ (def PP) { ppCurrent = (\_ -> "")
 {- Programs -}
 myTerminal = "sakura "
 myBrowser = "firefox "
-myMusicPlayer = "ncmpcpp "
+myMusicPlayer = "ncmpcpp -b ~/.config/ncmpcpp/config"
 
 {- Colors -}
 focdBord = "#f8f8f2"

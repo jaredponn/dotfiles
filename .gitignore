@@ -7,4 +7,5 @@ xmonad/xmonad.o
 xmonad/xmonad-x86_64-linux
 config/mpd/database
 config/nvim/.netrwhist
+config/ncmpcpp/error.log
 
