@@ -1,5 +1,8 @@
-./xmonad/.stack-work/
+./xmonad/.stack-work/*
 ./xmonad/xmonad.errors
 ./xmonad/xmonad.hi
 ./xmonad/xmonad.o
 ./xmonad/xmonad-x86_64-linux
+./config/mpd/database
+./config/nvim/.netrwhist
+
