@@ -105,6 +105,7 @@ mKeys = [
         , ((modMask, xK_b), spawn myBrowser) -- open browser
         , ((modMask .|. shiftMask, xK_b), spawn $ myBrowser ++ "--private-window")  -- open private instance of browser
         , ((modMask, xK_n), spawn $ myTerminal ++ " -x " ++ "'" ++ myMusicPlayer ++ "'")  -- open ncmpcpp
+        , ((modMask, xK_r), spawn $ "rofi -show run")  
 
         -- volume control
         , ((0, xK_F11 ), spawn  "amixer set 'Master' 2%-")
@@ -114,8 +115,9 @@ mKeys = [
 
 -- returns the terminal path if the title is one of the following applications
 getNextTerminalPath :: (String, String) -> String
-getNextTerminalPath ("ghci", path) = path
 getNextTerminalPath ("n", path) = path
+getNextTerminalPath ("v", path) = path
+getNextTerminalPath ("ghci", path) = path
 getNextTerminalPath ("vim", path) = path
 getNextTerminalPath ("fish", path) = path
 getNextTerminalPath ("clang", path) = path

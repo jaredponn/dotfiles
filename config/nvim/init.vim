@@ -29,8 +29,15 @@ set rtp+=/usr/local/opt/fzf
 set expandtab
 
 " YCMD
-let g:ycm_semantic_triggers = {'haskell' : ['re!.']}
-let g:ycm_semantic_triggers.haskell = ['re![^ ]+']
+let g:ycm_semantic_triggers =  {
+  \   'c' : ['->', '.', '_'],
+  \   'cpp,cuda,objcpp' : ['->', '.', '::'],
+  \   'haskell' : ['.']
+  \ }
+"let g:ycm_semantic_triggers = {'haskell' : ['re!.']}
+"let g:ycm_semantic_triggers.haskell = ['re![^ ]+']
+" removes the annoying autocompeltiong menu
+let g:ycm_autoclose_preview_window_after_completion = 1
 
 
 set incsearch "show charcters as typing"
