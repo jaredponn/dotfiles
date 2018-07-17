@@ -136,7 +136,8 @@ getCurrentWindowTitle = dynamicLogString $ (def PP) { ppCurrent = (\_ -> "")
                                                     , ppLayout = (\_ -> "") }
 
 {- Programs -}
-myTerminal = "sakura "
+{- myTerminal = "sakura " -}
+myTerminal = "ume "
 myBrowser = "firefox "
 myMusicPlayer = "ncmpcpp -b ~/.config/ncmpcpp/config"
 
