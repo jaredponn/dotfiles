@@ -27,16 +27,8 @@ function fish_prompt
         set_color $fish_color_cwd
         printf '%s' (prompt_pwd)
         set_color normal
-        printf '%s $' (__fish_git_prompt)
+        printf '%s $ ' (__fish_git_prompt)
        set_color normal
-end
-
-# Adds vim bindings to fish
-fish_vi_key_bindings
-function my_vi_bindings
-  fish_vi_key_bindings
-  bind -M insert -m default jk backward-char force-repaint
-  bind -M insert -m default kj backward-char force-repaint
 end
 
 # fkill - kill process
@@ -56,9 +48,5 @@ alias ghci "stack ghci"
 # modestly get yt song
 alias getsong "youtube-dl --extract-audio -o '~/Music/bin/%(title)s.%(ext)s' "
 
-set -g fish_key_bindings my_vi_bindings
-
 # adding .local/bin to the path. Needed for Haskell's Stack
 set -gx PATH /home/jared/.local/bin $PATH
-
-
