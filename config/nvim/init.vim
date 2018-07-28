@@ -68,14 +68,14 @@ nnoremap Y y$
 tnoremap <C-g> <C-\><C-n>
 
 " changing windwos
-tnoremap <A-h> <C-\><C-N><C-w>h
-tnoremap <A-j> <C-\><C-N><C-w>j
-tnoremap <A-k> <C-\><C-N><C-w>k
-tnoremap <A-l> <C-\><C-N><C-w>l
-inoremap <A-h> <C-\><C-N><C-w>h
-inoremap <A-j> <C-\><C-N><C-w>j
-inoremap <A-k> <C-\><C-N><C-w>k
-inoremap <A-l> <C-\><C-N><C-w>l
+"tnoremap <A-h> <C-\><C-N><C-w>h
+"tnoremap <A-j> <C-\><C-N><C-w>j
+"tnoremap <A-k> <C-\><C-N><C-w>k
+"tnoremap <A-l> <C-\><C-N><C-w>l
+"inoremap <A-h> <C-\><C-N><C-w>h
+"inoremap <A-j> <C-\><C-N><C-w>j
+"inoremap <A-k> <C-\><C-N><C-w>k
+"inoremap <A-l> <C-\><C-N><C-w>l
 
 "nnoremap <A-h> <C-w>h
 "nnoremap <A-j> <C-w>j
@@ -94,15 +94,19 @@ nnoremap <Leader>J <C-w>J
 nnoremap <Leader>L <C-w>L
 nnoremap <Leader>K <C-w>K
 
-" window managerment rempas
+" editing vimrcs
 nnoremap <Leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <Leader>evc :vsplit ~/.config/nvim/init_c.vim<cr>
+nnoremap <Leader>evi :vsplit ~/.config/nvim/init_vim.vim<cr>
 nnoremap <Leader>sv :source ~/.config/nvim/init.vim <cr>
-nnoremap <Leader>noh :noh <cr>
 
+" window managerment rempas
 nnoremap <Leader>hex :Hex <cr>/
 nnoremap <Leader>vex :Vex <cr>/
 nnoremap <Leader>ex :Ex <cr>/
+
+" other
+nnoremap <Leader>noh :noh <cr>
 
 " ---------------------------------------------------------------------------
 "    nerd commentor
@@ -126,12 +130,19 @@ let g:NERDTrimTrailingWhitespace = 1
 " ---------------------------------------------------------------------------
 "    file type specific things
 " ---------------------------------------------------------------------------
+" idk what this is here for but i've always had it so ....
 autocmd BufRead,BufNewFile *.md setlocal spell
 autocmd BufRead,BufNewFile *.tex setlocal spell
 autocmd FileType markdown,tex,textile source ~/.vim/lang_settings/text.vim
-
 "set formatoptions-=cro " removes the shityy auto commenter
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-autocmd FileType c,c++ source ~/.config/nvim/init_c.vim
-autocmd BufRead *.c,*.h source ~/.config/nvim/init_c.vim
+" NOTE Using BufEnter might be a better idea because there are some cases where BufRead will not tigger
+
+" C
+autocmd FileType c source ~/.config/nvim/init_c.vim
+autocmd BufRead,BufEnter *.c,*.h source ~/.config/nvim/init_c.vim
+
+" vimrc
+autocmd BufRead,BufEnter *.vim source ~/.config/nvim/init_vim.vim
+
