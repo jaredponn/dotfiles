@@ -3,10 +3,10 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'junegunn/fzf.vim' "fzf (fuzzy searching)
 Plug 'dracula/vim'  " color scheme
 Plug 'neomake/neomake'  "linting
-Plug 'cohama/lexima.vim' " brackets
+"Plug 'cohama/lexima.vim' " brackets
 
 " autocompletion
-Plug 'Valloric/YouCompleteMe' " mainly for c /c++
+Plug 'Valloric/YouCompleteMe', {'for': 'c'} "mainly for c /c++
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -127,6 +127,16 @@ nnoremap <C-b> <C-b>M
 nnoremap <C-f> <C-f>M
 
 " ---------------------------------------------------------------------------
+"    oher bracket completion
+" ---------------------------------------------------------------------------
+inoremap ( ()<esc>ba
+inoremap { {}<esc>ba
+inoremap {<cr> {<cr>}<esc>kA<cr><esc>cc
+inoremap [ []<esc>ba
+inoremap ' ''<esc>ba
+inoremap " ""<esc>ba
+
+" ---------------------------------------------------------------------------
 "    nerd commentor
 " ---------------------------------------------------------------------------
 " Add spaces after comment delimiters by default
@@ -166,3 +176,4 @@ autocmd BufRead,BufEnter *.vim source ~/.config/nvim/init_vim.vim
 
 " haskell
 autocmd BufRead,BufEnter *.hs source ~/.config/nvim/init_haskell.vim
+autocmd BufRead,BufEnter *.hs call deoplete#enable()
