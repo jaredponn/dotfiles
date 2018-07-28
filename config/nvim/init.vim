@@ -1,11 +1,10 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'junegunn/fzf.vim'
-Plug 'dracula/vim'
+Plug 'junegunn/fzf.vim' "fzf (fuzzy searching)
+Plug 'dracula/vim'  " color scheme
 Plug 'neomake/neomake'  "linting
-Plug 'cohama/lexima.vim'
+Plug 'cohama/lexima.vim' " brackets
 
-"Plug 'Shougo/deoplete.nvim'
 Plug 'Valloric/YouCompleteMe'
 
 " C++ sutff
@@ -54,8 +53,8 @@ set cursorline
 " ---------------------------------------------------------------------------
 map <SPACE> <leader> 
 map <SPACE> \
-imap jk <esc>
-imap kj <esc>
+"imap jk <esc>
+"imap kj <esc>
 map <S-k> <Nop>
 map <C-g> <esc>
 imap <C-g> <esc>
@@ -77,10 +76,10 @@ tnoremap <C-g> <C-\><C-n>
 "inoremap <A-k> <C-\><C-N><C-w>k
 "inoremap <A-l> <C-\><C-N><C-w>l
 
-"nnoremap <A-h> <C-w>h
-"nnoremap <A-j> <C-w>j
-"nnoremap <A-k> <C-w>k
-"nnoremap <A-l> <C-w>l
+"nnoremap <A-h> <C-w>h " moving to windows 
+"nnoremap <A-j> <C-w>j " moving to windows
+"nnoremap <A-k> <C-w>k " moving to windows
+"nnoremap <A-l> <C-w>l " moving to windows
 
 " moving to windows
 nnoremap <Leader>h <C-w>h
@@ -94,6 +93,12 @@ nnoremap <Leader>J <C-w>J
 nnoremap <Leader>L <C-w>L
 nnoremap <Leader>K <C-w>K
 
+" shifting windows in a terminal
+tnoremap <Leader>h <C-\><C-N><C-w>h
+tnoremap <Leader>j <C-\><C-N><C-w>j
+tnoremap <Leader>k <C-\><C-N><C-w>k
+tnoremap <Leader>l <C-\><C-N><C-w>l
+
 " editing vimrcs
 nnoremap <Leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <Leader>evc :vsplit ~/.config/nvim/init_c.vim<cr>
@@ -106,7 +111,14 @@ nnoremap <Leader>vex :Vex <cr>/
 nnoremap <Leader>ex :Ex <cr>/
 
 " other
-nnoremap <Leader>noh :noh <cr>
+nnoremap <Leader>noh :noh <cr> 
+nnoremap n nzz
+
+" screeen moement remaps
+nnoremap <C-u> <C-u>M
+nnoremap <C-d> <C-d>M
+nnoremap <C-b> <C-b>M
+nnoremap <C-f> <C-f>M
 
 " ---------------------------------------------------------------------------
 "    nerd commentor
