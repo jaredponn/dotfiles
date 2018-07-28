@@ -4,7 +4,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'dracula/vim'
 Plug 'neomake/neomake' 
-Plug 'jiangmiao/auto-pairs'
+Plug 'cohama/lexima.vim'
 
 "Plug 'Shougo/deoplete.nvim'
 Plug 'Valloric/YouCompleteMe'
@@ -37,7 +37,9 @@ let g:ycm_semantic_triggers =  {
 "let g:ycm_semantic_triggers = {'haskell' : ['re!.']}
 "let g:ycm_semantic_triggers.haskell = ['re![^ ]+']
 " removes the annoying autocompeltiong menu
-let g:ycm_autoclose_preview_window_after_completion = 1
+"let g:ycm_autoclose_preview_window_after_completion = 1
+" removes the anonying copmletion mode after leaving instert mode
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
 
 set incsearch "show charcters as typing"
@@ -201,6 +203,32 @@ let g:clang_format#auto_format_on_insert_leave = 0
 let g:clang_format#style_options = {
             \ "AccessModifierOffset" : -4,
             \ "AlwaysBreakTemplateDeclarations" : "true",
-            \ "Standard" : "C++11"}
+            \ "Standard" : "C++11",
+            \
+            \"BasedOnStyle": "LLVM",
+            \"Language": "Cpp",
+            \"IndentWidth": 8,
+            \"UseTab": "Always",
+            \"BreakBeforeBraces": "Linux",
+            \"AlwaysBreakBeforeMultilineStrings": "true",
+            \"AllowShortIfStatementsOnASingleLine": "false",
+            \"AllowShortLoopsOnASingleLine": "false",
+            \"AllowShortFunctionsOnASingleLine": "false",
+            \"IndentCaseLabels": "false",
+            \"AlignEscapedNewlinesLeft": "false",
+            \"AlignTrailingComments": "true",
+            \"AllowAllParametersOfDeclarationOnNextLine": "false",
+            \"AlignAfterOpenBracket": "true",
+            \"SpaceAfterCStyleCast": "false",
+            \"MaxEmptyLinesToKeep": 2,
+            \"BreakBeforeBinaryOperators": "NonAssignment",
+            \"BreakStringLiterals": "false",
+            \"SortIncludes":    "false",
+            \"ContinuationIndentWidth": 8}
 
 nnoremap <Leader>cd i// -----------------------------------------<CR>//    Sectional Dividers Like This<CR>// -----------------------------------------<CR><esc>kkwv$h
+
+nnoremap <Leader>cf A  /**< field info */<esc>12hvee
+
+ 
+nnoremap <Leader>ct cc/**<cr>*<cr>*/<esc>ka

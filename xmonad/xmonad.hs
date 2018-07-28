@@ -122,6 +122,7 @@ getNextTerminalPath ("vim", path) = path
 getNextTerminalPath ("fish", path) = path
 getNextTerminalPath ("clang", path) = path
 getNextTerminalPath ("stack", path) = path
+getNextTerminalPath ("mpv", path) = path
 getNextTerminalPath (_, _) = "~"
 
 -- getting the current window title 
