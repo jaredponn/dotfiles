@@ -1,3 +1,5 @@
+filetype plugin indent on    
+
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'junegunn/fzf.vim' "fzf (fuzzy searching)
@@ -6,7 +8,8 @@ Plug 'neomake/neomake'  "linting
 "Plug 'cohama/lexima.vim' " brackets
 
 " autocompletion
-Plug 'Valloric/YouCompleteMe', { 'for': 'c'} "mainly for 
+Plug 'Valloric/YouCompleteMe', { 'for': 'c,cpp',
+                        \ } "mainly for 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'
                 \ }
 Plug 'autozimu/LanguageClient-neovim', {
@@ -38,7 +41,6 @@ set conceallevel=0
 set encoding=utf-8
 
 syntax on
-filetype plugin indent on    
 
 "set spell spelllang=en_us
 
@@ -137,7 +139,7 @@ inoremap ( ()<esc>ba
 inoremap { {}<esc>ba
 inoremap {<cr> {<cr>}<esc>kA<cr><esc>cc
 inoremap [ []<esc>ba
-inoremap ' ''<esc>ba
+"inoremap ' ''<esc>ba
 inoremap " ""<esc>ba
 
 " ---------------------------------------------------------------------------
