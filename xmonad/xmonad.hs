@@ -106,6 +106,7 @@ mKeys = [
         , ((modMask .|. shiftMask, xK_b), spawn $ myBrowser ++ "--private-window")  -- open private instance of browser
         , ((modMask, xK_n), spawn $ myTerminal ++ " -x " ++ "'" ++ myMusicPlayer ++ "'")  -- open ncmpcpp
         , ((modMask, xK_r), spawn $ "rofi -show run")  
+        , ((modMask, xK_p), spawn $ myTerminal ++ " -x ncpamixer")  
 
         -- volume control
         , ((0, xK_F11 ), spawn  "amixer set 'Master' 2%-")
