@@ -22,13 +22,14 @@ nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
+
+
+" making the autocmpletion a bit more pleaseant
 autocmd CompleteDone * silent! pclose!
 autocmd InsertLeave * silent! pclose!
-
 " tab ieration
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<tab>"
-
 
 " sometimes in haskell we just want the single quote
 inoremap ' '

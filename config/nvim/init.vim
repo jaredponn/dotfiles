@@ -6,12 +6,13 @@ Plug 'neomake/neomake'  "linting
 "Plug 'cohama/lexima.vim' " brackets
 
 " autocompletion
-Plug 'Valloric/YouCompleteMe', {'for': 'c'} "mainly for c /c++
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Valloric/YouCompleteMe', { 'for': 'c'} "mainly for 
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'
+                \ }
 Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+                        \ 'branch': 'next',
+                        \ 'do': 'bash install.sh',
+                        \ }
 
 " C++ sutff
 Plug 'rhysd/vim-clang-format'
@@ -115,6 +116,9 @@ nnoremap <Leader>sv :source ~/.config/nvim/init.vim <cr>
 nnoremap <Leader>hex :Hex <cr>/
 nnoremap <Leader>vex :Vex <cr>/
 nnoremap <Leader>ex :Ex <cr>/
+nnoremap - :Ex <cr>/
+nnoremap <Leader>he :Hex <cr>/
+nnoremap <Leader>ve :Vex <cr>/
 
 " other
 nnoremap <Leader>noh :noh <cr> 
