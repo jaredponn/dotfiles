@@ -5,7 +5,13 @@ Plug 'dracula/vim'  " color scheme
 Plug 'neomake/neomake'  "linting
 Plug 'cohama/lexima.vim' " brackets
 
-Plug 'Valloric/YouCompleteMe'
+" autocompletion
+Plug 'Valloric/YouCompleteMe' " mainly for c /c++
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
 " C++ sutff
 Plug 'rhysd/vim-clang-format'
@@ -158,3 +164,5 @@ autocmd BufRead,BufEnter *.c,*.h source ~/.config/nvim/init_c.vim
 " vimrc
 autocmd BufRead,BufEnter *.vim source ~/.config/nvim/init_vim.vim
 
+" haskell
+autocmd BufRead,BufEnter *.hs source ~/.config/nvim/init_haskell.vim
