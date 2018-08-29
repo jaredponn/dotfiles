@@ -62,3 +62,7 @@ nnoremap <Leader>sc :e %<.c<cr>
 
 nnoremap <Leader>vsh :vsplit %<.h<cr>
 nnoremap <Leader>vsc :vsplit %<.c<cr>
+
+" tags and joy"
+nnoremap <Leader>t :Tags<cr>
+nnoremap <Leader>bt :Tags<cr>

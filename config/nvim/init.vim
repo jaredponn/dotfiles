@@ -1,39 +1,42 @@
-filetype plugin indent on    
-
-call plug#begin('~/.local/share/nvim/plugged')
-
-Plug 'junegunn/fzf.vim' "fzf (fuzzy searching)
-Plug 'dracula/vim'  " color scheme
-Plug 'neomake/neomake'  "linting
-"Plug 'cohama/lexima.vim' " brackets
-
-" autocompletion
-Plug 'Valloric/YouCompleteMe', { 'for': 'c,cpp',
-                        \ } "mainly for 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'
-                \ }
-Plug 'autozimu/LanguageClient-neovim', {
-                        \ 'branch': 'next',
-                        \ 'do': 'bash install.sh',
-                        \ }
-
-" C++ sutff
-Plug 'rhysd/vim-clang-format'
-
-" commentor
-Plug 'scrooloose/nerdcommenter'
-
-call plug#end()
-
 " I will nevre get FZF to work with neovim
 set rtp+=~/.fzf
 set rtp+=/usr/local/opt/fzf
 
-set expandtab
+call plug#begin('~/.local/share/nvim/plugged')
+Plug 'junegunn/fzf.vim' "fzf (fuzzy searching)
+Plug 'dracula/vim'  " color scheme
+Plug 'neomake/neomake'  "linting
+"Plug 'cohama/lexima.vim' " brackets
+""Plugin 'tylerbrazier/vim-bracepair' " maybe use later
 
+" autocompletion
+Plug 'Valloric/YouCompleteMe', { 'for': 'c,cpp',
+                        \ } "mainly for 
+Plug 'vim-scripts/a.vim', {'for' : 'c,cpp'} "switchign between header and c
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins',
+                        \ }
+Plug 'autozimu/LanguageClient-neovim', {
+                        \ 'branch': 'next',
+                        \ 'do': 'bash install.sh' }
+
+" C++ sutff
+Plug 'rhysd/vim-clang-format'
+Plug 'ludovicchabant/vim-gutentags'
+
+" commentor
+Plug 'scrooloose/nerdcommenter'
+call plug#end()
+
+
+filetype plugin indent on    
+
+set expandtab
 set incsearch "show charcters as typing"
 set hlsearch
+
 set ignorecase
+set smartcase
+
 set number
 
 set showmatch " this highlights the other bracket
@@ -45,10 +48,6 @@ syntax on
 "set spell spelllang=en_us
 
 " copy and paste
-vmap <C-S-c> "+yi
-vmap <C-x> "+c
-vmap <C-S-v> c<ESC>"+p
-imap <C-S-v> <ESC>"+pa
 set clipboard=unnamedplus
 
 " Setting the color scheme
@@ -56,6 +55,7 @@ set background=dark
 colorscheme dracula
 hi! Normal ctermbg=NONE guibg=NONE
 set cursorline
+
 
 " ---------------------------------------------------------------------------
 "    Vim remaps
@@ -115,9 +115,9 @@ nnoremap <Leader>evi :vsplit ~/.config/nvim/init_vim.vim<cr>
 nnoremap <Leader>sv :source ~/.config/nvim/init.vim <cr>
 
 " window managerment rempas
-nnoremap <Leader>hex :Hex <cr>/
-nnoremap <Leader>vex :Vex <cr>/
-nnoremap <Leader>ex :Ex <cr>/
+""nnoremap <Leader>hex :Hex <cr>/
+""nnoremap <Leader>vex :Vex <cr>/
+""nnoremap <Leader>ex :Ex <cr>/
 nnoremap - :Ex <cr>/
 nnoremap <Leader>he :Hex <cr>/
 nnoremap <Leader>ve :Vex <cr>/
@@ -135,12 +135,12 @@ nnoremap <C-f> <C-f>M
 " ---------------------------------------------------------------------------
 "    oher bracket completion
 " ---------------------------------------------------------------------------
-inoremap ( ()<esc>ba
-inoremap { {}<esc>ba
+inoremap ( ()<esc>ha
+inoremap { {}<esc>ha
 inoremap {<cr> {<cr>}<esc>kA<cr><esc>cc
-inoremap [ []<esc>ba
+inoremap [ []<esc>ha
 "inoremap ' ''<esc>ba
-inoremap " ""<esc>ba
+inoremap " ""<esc>ha
 
 " ---------------------------------------------------------------------------
 "    nerd commentor

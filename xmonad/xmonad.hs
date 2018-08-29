@@ -76,6 +76,8 @@ main = do
                 }
         , focusedBorderColor = focdBord
         , normalBorderColor = normBord
+        , focusFollowsMouse = False
+        , clickJustFocuses = False
         } `additionalKeys` mKeys
 
 {- Keys -}
@@ -106,11 +108,15 @@ mKeys = [
         , ((modMask .|. shiftMask, xK_b), spawn $ myBrowser ++ "--private-window")  -- open private instance of browser
         , ((modMask, xK_n), spawn $ myTerminal ++ " -x " ++ "'" ++ myMusicPlayer ++ "'")  -- open ncmpcpp
         , ((modMask, xK_r), spawn $ "rofi -show run")  
-        , ((modMask, xK_p), spawn $ myTerminal ++ " -x ncpamixer")  
+        , ((modMask, xK_v), spawn $ myTerminal ++ " -x ncpamixer")  
 
         -- volume control
         , ((0, xK_F11 ), spawn  "amixer set 'Master' 2%-")
         , ((0, xK_F12 ), spawn "amixer set 'Master' 2%+")
+
+        -- resizing windows
+        , ((modMask .|. controlMask , xK_h), sendMessage Shrink)  
+        , ((modMask .|. controlMask , xK_l), sendMessage Expand)  
 
     ] where modMask = mod4Mask  -- prefer super
 

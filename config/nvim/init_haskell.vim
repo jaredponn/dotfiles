@@ -17,8 +17,13 @@ let g:LanguageClient_serverCommands = {
 " ---------------------------------------------------------------------------
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <Leader>g :call LanguageClient_contextMenu()<CR>
+
 " Or map each action separately
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+
+" type
+nnoremap <Leader>t :call LanguageClient#textDocument_definition() <CR>
+
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
