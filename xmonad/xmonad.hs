@@ -7,6 +7,7 @@ import XMonad.Util.Run        (spawnPipe)
 import XMonad.Util.EZConfig   (additionalKeys)
 import XMonad.Util.SpawnOnce
 
+import Data.Maybe
 import qualified Data.List as L
 import qualified Data.Text as T
 import qualified XMonad.StackSet as W
@@ -18,6 +19,7 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.Gaps
 
+import qualified XMonad.Hooks.EwmhDesktops 
 import qualified XMonad.Layout.IndependentScreens as IndependentScreens
 import qualified XMonad.Actions.CycleWS as CycleWS
 
@@ -60,7 +62,7 @@ main :: IO ()
 main = do
     xmobarHandle <- spawnPipe "xmobar ~/.xmonad/lowerxmobarconf"
     numberOfScreens <- IndependentScreens.countScreens
-    xmonad $ def
+    xmonad $ XMonad.Hooks.EwmhDesktops.ewmh def
             { manageHook = manageDocks <+> manageHook def
             , layoutHook = windowArrange layout
             , startupHook = startUpActions
@@ -78,6 +80,7 @@ main = do
         , normalBorderColor = normBord
         , focusFollowsMouse = False
         , clickJustFocuses = False
+        , handleEventHook = handleEventHook def <+> XMonad.Hooks.EwmhDesktops.fullscreenEventHook
         } `additionalKeys` mKeys
 
 {- Keys -}
@@ -134,14 +137,14 @@ getNextTerminalPath (_, _) = "~"
 
 -- getting the current window title 
 getCurrentWindowTitle :: X String
-getCurrentWindowTitle = dynamicLogString $ (def PP) { ppCurrent = (\_ -> "")
-                                                    , ppVisible = (\_ -> "")
-                                                    , ppHidden = (\_ -> "")
-                                                    , ppHiddenNoWindows = (\_ -> "")
-                                                    , ppUrgent = (\_ -> "")
+getCurrentWindowTitle = dynamicLogString $ (def PP) { ppCurrent = const ""
+                                                    , ppVisible = const ""
+                                                    , ppHidden = const ""
+                                                    , ppHiddenNoWindows = const ""
+                                                    , ppUrgent = const ""
                                                     , ppSep = ""
                                                     , ppWsSep = ""
-                                                    , ppLayout = (\_ -> "") }
+                                                    , ppLayout = const "" }
 
 {- Programs -}
 {- myTerminal = "sakura " -}
