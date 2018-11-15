@@ -8,7 +8,7 @@ let g:LanguageClient_serverCommands = {
     \ }
 
 let g:LanguageClient_serverCommands = {
-    \ 'haskell': ['hie-wrapper', '-r', '~/jaredponn.github.io/'],
+    \ 'haskell': ['hie-wrapper', '-r', '~/Programs/cps'],
     \ }
 "\ 'haskell': ['hie-wrapper', '-r', '$YOURROOTHERE'],
 

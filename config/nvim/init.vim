@@ -10,8 +10,8 @@ Plug 'neomake/neomake'  "linting
 ""Plugin 'tylerbrazier/vim-bracepair' " maybe use later
 
 " autocompletion
-Plug 'Valloric/YouCompleteMe', { 'for': 'c,cpp',
-                        \ } "mainly for 
+" Plug 'Valloric/YouCompleteMe', { 'for': 'c,cpp,py,python',} "mainly for
+Plug 'Valloric/YouCompleteMe', { 'for': 'c,cpp',} "mainly for
 Plug 'vim-scripts/a.vim', {'for' : 'c,cpp'} "switchign between header and c
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins',
                         \ }
@@ -20,11 +20,12 @@ Plug 'autozimu/LanguageClient-neovim', {
                         \ 'do': 'bash install.sh' }
 
 " C++ sutff
-Plug 'rhysd/vim-clang-format'
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'rhysd/vim-clang-format', { 'for': 'c,cpp',} "mainly for 
+Plug 'ludovicchabant/vim-gutentags', { 'for': 'c,cpp',} "mainly for 
 
 " commentor
-Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-commentary'
+
 call plug#end()
 
 
@@ -118,19 +119,21 @@ nnoremap <Leader>sv :source ~/.config/nvim/init.vim <cr>
 ""nnoremap <Leader>hex :Hex <cr>/
 ""nnoremap <Leader>vex :Vex <cr>/
 ""nnoremap <Leader>ex :Ex <cr>/
-nnoremap - :Ex <cr>/
-nnoremap <Leader>he :Hex <cr>/
-nnoremap <Leader>ve :Vex <cr>/
+nnoremap - :Ex <cr>
+nnoremap <Leader>he :Hex <cr>
+nnoremap <Leader>ve :Vex <cr>
 
 " other
 nnoremap <Leader>noh :noh <cr> 
-nnoremap n nzz
+" nnoremap n nzz
 
 " screeen moement remaps
-nnoremap <C-u> <C-u>M
-nnoremap <C-d> <C-d>M
-nnoremap <C-b> <C-b>M
-nnoremap <C-f> <C-f>M
+" nnoremap <C-u> <C-u>M
+" nnoremap <C-d> <C-d>M
+" nnoremap <C-b> <C-b>M
+" nnoremap <C-f> <C-f>M
+
+" bindings for easier tab managemnet
 
 " ---------------------------------------------------------------------------
 "    oher bracket completion
@@ -142,32 +145,33 @@ inoremap [ []<esc>ha
 "inoremap ' ''<esc>ba
 inoremap " ""<esc>ha
 
-" ---------------------------------------------------------------------------
-"    nerd commentor
-" ---------------------------------------------------------------------------
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
-" Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = 'left'
-" Set a language to use its alternate delimiters by default
-let g:NERDAltDelims_java = 1
-" Add your own custom formats or override the defaults
-let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+inoremap () ()<esc>ha
+inoremap {} {}<esc>ha
+inoremap {<cr> {<cr>}<esc>kA<cr><esc>cc
+inoremap [] []<esc>ha
+"inoremap ' ''<esc>ba
+inoremap "" ""<esc>ha
 
-" Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDCommentEmptyLines = 1
-" Enable trimming of trailing whitespace when uncommenting
-let g:NERDTrimTrailingWhitespace = 1
+
+" ---------------------------------------------------------------------------
+"    modifying brackets
+" ---------------------------------------------------------------------------
+noremap <Leader>( ci(
+noremap <Leader>) ci)
+noremap <Leader>{ ci{
+noremap <Leader>} ci}
+noremap <Leader>[ ci[
+noremap <Leader>] ci]
+noremap <Leader>< ci<
+noremap <Leader>> ci>
+noremap <Leader>' ci'
+noremap <Leader>' ci"
+
 
 " ---------------------------------------------------------------------------
 "    file type specific things
 " ---------------------------------------------------------------------------
-" idk what this is here for but i've always had it so ....
-autocmd BufRead,BufNewFile *.md setlocal spell
-autocmd BufRead,BufNewFile *.tex setlocal spell
-autocmd FileType markdown,tex,textile source ~/.vim/lang_settings/text.vim
+
 "set formatoptions-=cro " removes the shityy auto commenter
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
@@ -175,7 +179,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " C
 autocmd FileType c source ~/.config/nvim/init_c.vim
-autocmd BufRead,BufEnter *.c,*.h source ~/.config/nvim/init_c.vim
+autocmd BufRead,BufEnter *.c,*.h,*.cpp source ~/.config/nvim/init_c.vim
 
 " vimrc
 autocmd BufRead,BufEnter *.vim source ~/.config/nvim/init_vim.vim
@@ -183,3 +187,8 @@ autocmd BufRead,BufEnter *.vim source ~/.config/nvim/init_vim.vim
 " haskell
 autocmd BufRead,BufEnter *.hs source ~/.config/nvim/init_haskell.vim
 autocmd BufRead,BufEnter *.hs call deoplete#enable()
+
+" tex
+autocmd BufRead,BufEnter *.tex source ~/.config/nvim/init_tex.vim
+
+autocmd BufRead,BufEnter *.md source ~/.config/nvim/init_md.vim

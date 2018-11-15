@@ -48,9 +48,15 @@ alias n "nvim" # n for vim
 alias zathura "zathura --fork" # v for vim
 alias ghc "stack ghc --"
 alias ghci "stack ghci"
+alias editFish "n ~/.config/fish/config.fish"
 
 ## modestly get yt song
 alias getsong "youtube-dl --extract-audio -o '~/Music/bin/%(title)s.%(ext)s' "
+
+## lower brightness
+alias dim "echo 200 | sudo tee  /sys/class/backlight/intel_backlight/brightness"
+alias bright "echo 800 | sudo tee  /sys/class/backlight/intel_backlight/brightness"
+alias discord "flatpak run com.discordapp.Discord/x86_64/stable "
 
 ## adding .local/bin to the path. Needed for Haskell's Stack
 set -gx PATH /home/jared/.local/bin $PATH

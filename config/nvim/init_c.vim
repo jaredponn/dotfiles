@@ -13,7 +13,7 @@ let g:ycm_semantic_triggers =  {
 " removes the annoying autocompeltiong menu
 "let g:ycm_autoclose_preview_window_after_completion = 1
 " removes the anonying copmletion mode after leaving instert mode
-let g:ycm_autoclose_preview_window_after_insertion = 1
+" let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " ---------------------------------------------------------------------------
 "    C formatting

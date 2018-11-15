@@ -80,7 +80,7 @@ main = do
         , normalBorderColor = normBord
         , focusFollowsMouse = False
         , clickJustFocuses = False
-        , handleEventHook = handleEventHook def <+> XMonad.Hooks.EwmhDesktops.fullscreenEventHook
+        {- , handleEventHook = handleEventHook def <+> XMonad.Hooks.EwmhDesktops.fullscreenEventHook -}
         } `additionalKeys` mKeys
 
 {- Keys -}
