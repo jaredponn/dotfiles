@@ -56,6 +56,9 @@ set background=dark
 colorscheme dracula
 hi! Normal ctermbg=NONE guibg=NONE
 set cursorline
+ 
+" disabling the mouse 
+set mouse=
 
 
 " ---------------------------------------------------------------------------
