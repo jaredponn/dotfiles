@@ -45,6 +45,7 @@ end
 ## ALIASES
 alias v "vim" # v for vim
 alias n "nvim" # n for vim
+alias nvimrc "n ~/.config/nvim/init.vim" # n for vim
 alias zathura "zathura --fork" # v for vim
 alias ghc "stack ghc --"
 alias ghci "stack ghci"
