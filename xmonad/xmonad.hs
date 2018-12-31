@@ -104,7 +104,7 @@ mKeys = [
                     app' = T.unpack .  T.strip . T.pack $ app
                     path' = T.unpack .  T.strip . T.pack $ path
                     newterminalspawndir = getNextTerminalPath (app', path')
-                spawn $ myTerminal ++ " -d " ++ newterminalspawndir) -- spawn terminal at current directoty
+                spawn $ myTerminal ++ " -d " ++ escapeTerminalPath newterminalspawndir) -- spawn terminal at current directoty
 
         , ((modMask .|. shiftMask, xK_Return), spawn $ myTerminal ++ "-d ~")  -- spawn terminal at home directotry
         , ((modMask, xK_b), spawn myBrowser) -- open browser
@@ -134,6 +134,20 @@ getNextTerminalPath ("clang", path) = path
 getNextTerminalPath ("stack", path) = path
 getNextTerminalPath ("mpv", path) = path
 getNextTerminalPath (_, _) = "~"
+
+-- escapes the characters so that fish understands what directory we are using
+escapeTerminalPath :: String -> String
+escapeTerminalPath (x:xs) 
+        | escapeCharacter x = '\\' : x  : escapeTerminalPath xs
+        | otherwise = x : escapeTerminalPath xs
+escapeTerminalPath [] = []
+
+-- provudes the chaacters to escape
+escapeCharacter :: Char -> Bool
+escapeCharacter x 
+        | x == ' ' = True
+        | otherwise = False
+
 
 -- getting the current window title 
 getCurrentWindowTitle :: X String
