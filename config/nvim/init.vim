@@ -11,7 +11,7 @@ Plug 'neomake/neomake'  "linting
 
 " autocompletion
 " Plug 'Valloric/YouCompleteMe', { 'for': 'c,cpp,py,python',} "mainly for
-Plug 'Valloric/YouCompleteMe', { 'for': 'c,cpp',} "mainly for
+" Plug 'Valloric/YouCompleteMe', { 'for': 'c,cpp',} "mainly for
 Plug 'vim-scripts/a.vim', {'for' : 'c,cpp'} "switchign between header and c
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins',
                         \ }
@@ -59,7 +59,6 @@ set cursorline
  
 " disabling the mouse 
 set mouse=
-
 
 " ---------------------------------------------------------------------------
 "    Vim remaps
@@ -113,7 +112,7 @@ tnoremap <Leader>k <C-\><C-N><C-w>k
 tnoremap <Leader>l <C-\><C-N><C-w>l
 
 " editing vimrcs
-nnoremap <Leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <Leader>ev :tabnew $MYVIMRC<cr>
 nnoremap <Leader>evc :vsplit ~/.config/nvim/init_c.vim<cr>
 nnoremap <Leader>evi :vsplit ~/.config/nvim/init_vim.vim<cr>
 nnoremap <Leader>sv :source ~/.config/nvim/init.vim <cr>
@@ -172,6 +171,36 @@ noremap <Leader>' ci"
 
 
 " ---------------------------------------------------------------------------
+"    deoplete
+" ---------------------------------------------------------------------------
+let g:deoplete#enable_at_startup = 1 " autocompleetion
+
+" making the autocmpletion a bit more pleaseant
+autocmd CompleteDone * silent! pclose!
+autocmd InsertLeave * silent! pclose!
+" tab ieration
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<tab>"
+" fixes the weird multiple pressing enter for an enter key to work
+inoremap <expr> <CR> pumvisible() ? '<c-e><cr>' : '<cr>'
+
+
+" ---------------------------------------------------------------------------
+"    LSP
+" ---------------------------------------------------------------------------
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nnoremap <Leader>g :call LanguageClient_contextMenu()<CR>
+
+" Or map each action separately
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+
+" type
+nnoremap <Leader>t :call LanguageClient#textDocument_definition() <CR>
+
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+" ---------------------------------------------------------------------------
 "    file type specific things
 " ---------------------------------------------------------------------------
 
@@ -189,9 +218,9 @@ autocmd BufRead,BufEnter *.vim source ~/.config/nvim/init_vim.vim
 
 " haskell
 autocmd BufRead,BufEnter *.hs source ~/.config/nvim/init_haskell.vim
-autocmd BufRead,BufEnter *.hs call deoplete#enable()
 
 " tex
 autocmd BufRead,BufEnter *.tex source ~/.config/nvim/init_tex.vim
 
+" md
 autocmd BufRead,BufEnter *.md source ~/.config/nvim/init_md.vim

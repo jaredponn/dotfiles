@@ -1,19 +1,10 @@
-
 " ---------------------------------------------------------------------------
 "    YCMD
 " ---------------------------------------------------------------------------
-let g:ycm_semantic_triggers =  {
-  \   'c' : ['->', '.', '_'],
-  \   'cpp,cuda,objcpp' : ['->', '.', '::'],
-  \ }
 
-  "\   'haskell' : ['.']
-"let g:ycm_semantic_triggers = {'haskell' : ['re!.']}
-"let g:ycm_semantic_triggers.haskell = ['re![^ ]+']
-" removes the annoying autocompeltiong menu
-"let g:ycm_autoclose_preview_window_after_completion = 1
-" removes the anonying copmletion mode after leaving instert mode
-" let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:LanguageClient_serverCommands = {
+  \ 'cpp': ['clangd'],
+  \ }
 
 " ---------------------------------------------------------------------------
 "    C formatting
