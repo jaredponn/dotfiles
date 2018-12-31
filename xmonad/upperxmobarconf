@@ -38,11 +38,11 @@ Config {
    , commands = 
 
         -- weather monitor
-        [ Run Weather "RJTT" [ "--template", "<skyCondition> | <fc=#f8f8f2><tempC></fc>°C | <fc=#f8f8f2><rh></fc>% | <fc=#f8f8f2><pressure></fc>hPa"
-                             ] 36000
+        -- [ Run Weather "RJTT" [ "--template", "<skyCondition> | <fc=#f8f8f2><tempC></fc>°C | <fc=#f8f8f2><rh></fc>% | <fc=#f8f8f2><pressure></fc>hPa"
+        --                     ] 36000
 
         -- network activity monitor (dynamic interface resolution)
-        , Run DynNetwork     [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
+        [Run DynNetwork     [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
                              , "--Low"      , "1000"       -- units: B/s
                              , "--High"     , "5000"       -- units: B/s
                              , "--low"      , "#50fa7b"
