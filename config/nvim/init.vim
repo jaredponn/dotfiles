@@ -6,15 +6,13 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'junegunn/fzf.vim' "fzf (fuzzy searching)
 Plug 'dracula/vim'  " color scheme
 Plug 'neomake/neomake'  "linting
-"Plug 'cohama/lexima.vim' " brackets
-""Plugin 'tylerbrazier/vim-bracepair' " maybe use later
 
 " autocompletion
 " Plug 'Valloric/YouCompleteMe', { 'for': 'c,cpp,py,python',} "mainly for
 " Plug 'Valloric/YouCompleteMe', { 'for': 'c,cpp',} "mainly for
+
 Plug 'vim-scripts/a.vim', {'for' : 'c,cpp'} "switchign between header and c
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins',
-                        \ }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'autozimu/LanguageClient-neovim', {
                         \ 'branch': 'next',
                         \ 'do': 'bash install.sh' }
@@ -174,10 +172,22 @@ noremap <Leader>' ci"
 "    deoplete
 " ---------------------------------------------------------------------------
 let g:deoplete#enable_at_startup = 1 " autocompleetion
+let g:deoplete#auto_complete_delay = 1 " autocompleetion
+
+
 
 " making the autocmpletion a bit more pleaseant
 autocmd CompleteDone * silent! pclose!
 autocmd InsertLeave * silent! pclose!
+
+inoremap <expr><C-n> pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ deoplete#mappings#manual_complete()
+        function! s:check_back_space() abort "{{{
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1]  =~ '\s'
+        endfunction"}}}
+
 " tab ieration
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<tab>"
@@ -201,8 +211,10 @@ nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 " ---------------------------------------------------------------------------
-"    file type specific things
+"    auto commands
 " ---------------------------------------------------------------------------
+" resize make the windows the same
+autocmd VimResized * exe "normal \<c-w>="
 
 "set formatoptions-=cro " removes the shityy auto commenter
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
