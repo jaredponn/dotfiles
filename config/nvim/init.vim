@@ -169,24 +169,26 @@ noremap <Leader>' ci"
 
 
 " ---------------------------------------------------------------------------
-"    deoplete
+"    deoplete // completion
+"    http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
 " ---------------------------------------------------------------------------
 let g:deoplete#enable_at_startup = 1 " autocompleetion
 let g:deoplete#auto_complete_delay = 1 " autocompleetion
 
-
+" selects the longest common text of all matches 
+set completeopt=longest,menuone
 
 " making the autocmpletion a bit more pleaseant
 autocmd CompleteDone * silent! pclose!
 autocmd InsertLeave * silent! pclose!
 
-inoremap <expr><C-n> pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ deoplete#mappings#manual_complete()
-        function! s:check_back_space() abort "{{{
-      let col = col('.') - 1
-      return !col || getline('.')[col - 1]  =~ '\s'
-        endfunction"}}}
+" inoremap <expr><C-n> pumvisible() ? "\<C-n>" :
+"         \ <SID>check_back_space() ? "\<TAB>" :
+"         \ deoplete#mappings#manual_complete()
+"         function! s:check_back_space() abort "{{{
+"       let col = col('.') - 1
+"       return !col || getline('.')[col - 1]  =~ '\s'
+"         endfunction"}}}
 
 " tab ieration
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
@@ -202,10 +204,10 @@ nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <Leader>g :call LanguageClient_contextMenu()<CR>
 
 " Or map each action separately
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 
 " type
-nnoremap <Leader>t :call LanguageClient#textDocument_definition() <CR>
+nnoremap <Leader>K :call LanguageClient#textDocument_definition() <CR>
 
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>

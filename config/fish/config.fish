@@ -44,12 +44,16 @@ end
 
 ## ALIASES
 alias v "vim" # v for vim
+alias xv "vim-x11" # v for vim
+alias pv "vim-huge-python3" # v for vim
 alias n "nvim" # n for vim
 alias nvimrc "n ~/.config/nvim/init.vim" # n for vim
 alias zathura "zathura --fork" # v for vim
 alias ghc "stack ghc --"
 alias ghci "stack ghci"
 alias editFish "n ~/.config/fish/config.fish"
+alias fishconf "n ~/.config/fish/config.fish"
+alias fishrc "n ~/.config/fish/config.fish"
 
 ## modestly get yt song
 alias getsong "youtube-dl --extract-audio -o '~/Music/bin/%(title)s.%(ext)s' "

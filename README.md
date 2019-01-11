@@ -23,4 +23,6 @@ cd Jared-s-Config-Files
 ./link.sh
 ```
 
+## Notes on XMonad
+I followed [this guy's](https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/) tutorial to install XMonad with stack. 
 
