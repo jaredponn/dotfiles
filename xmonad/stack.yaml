@@ -42,6 +42,10 @@ packages:
 # (e.g., acme-missiles-0.3)
 extra-deps: 
 - iwlib-0.1.0
+- alsa-mixer-0.3.0
+- dbus-1.2.1
+- parsec-numbers-0.1.0
+
 
 # Override default flag values for local packages and extra-deps
 flags:
