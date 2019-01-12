@@ -9,3 +9,4 @@ ln -s ~/Jared-s-Config-Files/config/ume ~/.config/ume
 
 ## deprecated
 ln -s ~/Jared-s-Config-Files/config/sakura ~/.config/sakura
+ln -s ~/Jared-s-Config-Files/vimrc ~/.vimrc
