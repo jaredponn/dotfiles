@@ -15,3 +15,5 @@ nnoremap <Leader>pdf :!zathura --fork %<.pdf<cr>
 set nocursorline
 
 
+inoremap $ $$<esc>ha
+

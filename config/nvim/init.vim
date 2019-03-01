@@ -18,8 +18,8 @@ Plug 'autozimu/LanguageClient-neovim', {
                         \ 'do': 'bash install.sh' }
 
 " C++ sutff
-Plug 'rhysd/vim-clang-format', { 'for': 'c,cpp',} "mainly for 
-Plug 'ludovicchabant/vim-gutentags', { 'for': 'c,cpp',} "mainly for 
+Plug 'rhysd/vim-clang-format', { 'for': 'c,cpp,java',} 
+Plug 'ludovicchabant/vim-gutentags', { 'for': 'c,cpp',} 
 
 " commentor
 Plug 'tpope/vim-commentary'
@@ -225,7 +225,8 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " C
 autocmd FileType c source ~/.config/nvim/init_c.vim
-autocmd BufRead,BufEnter *.c,*.h,*.cpp source ~/.config/nvim/init_c.vim
+autocmd BufRead,BufEnter *.c,*.h,*.cpp,*.java source ~/.config/nvim/init_c.vim
+autocmd BufRead,BufEnter *.java source ~/.config/nvim/init_java.vim
 
 " vimrc
 autocmd BufRead,BufEnter *.vim source ~/.config/nvim/init_vim.vim
