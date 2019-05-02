@@ -23,6 +23,14 @@ cd Jared-s-Config-Files
 ./link.sh
 ```
 
-## Notes on XMonad
-I followed [this guy's](https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/) tutorial to install XMonad with stack. 
+## Notes
+ * I followed [this guy's](https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/) tutorial to install XMonad with stack. 
+ * To get Haskell stack working with Void Linux, error message of 
+ ```bash
+ No setup information found for ghc-8.4.3 on your platform.
+ This probably means a GHC bindist has not yet been added for OS key 'linux64-ncurses6', 'linux64-tinfo6'.
+ ```
+ Go to `/lib` and run `sudo ln -s libncursesw.so.6 libtinfo.so.6`
+ 
+ 
 
