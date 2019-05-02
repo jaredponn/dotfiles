@@ -130,6 +130,7 @@ getNextTerminalPath ("v", path) = path
 getNextTerminalPath ("ghci", path) = path
 getNextTerminalPath ("vim", path) = path
 getNextTerminalPath ("fish", path) = path
+getNextTerminalPath ("git", path) = path
 getNextTerminalPath ("clang", path) = path
 getNextTerminalPath ("stack", path) = path
 getNextTerminalPath ("mpv", path) = path

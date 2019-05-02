@@ -6,6 +6,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'junegunn/fzf.vim' "fzf (fuzzy searching)
 Plug 'dracula/vim'  " color scheme
 Plug 'neomake/neomake'  "linting
+Plug 'tylerbrazier/vim-bracepair'
 
 " autocompletion
 " Plug 'Valloric/YouCompleteMe', { 'for': 'c,cpp,py,python',} "mainly for
@@ -138,19 +139,19 @@ nnoremap <Leader>noh :noh <cr>
 " ---------------------------------------------------------------------------
 "    oher bracket completion
 " ---------------------------------------------------------------------------
-inoremap ( ()<esc>ha
-inoremap { {}<esc>ha
-inoremap {<cr> {<cr>}<esc>kA<cr><esc>cc
-inoremap [ []<esc>ha
-"inoremap ' ''<esc>ba
-inoremap " ""<esc>ha
-
-inoremap () ()<esc>ha
-inoremap {} {}<esc>ha
-inoremap {<cr> {<cr>}<esc>kA<cr><esc>cc
-inoremap [] []<esc>ha
-"inoremap ' ''<esc>ba
-inoremap "" ""<esc>ha
+" inoremap ( ()<esc>ha
+" inoremap { {}<esc>ha
+" inoremap {<cr> {<cr>}<esc>kA<cr><esc>cc
+" inoremap [ []<esc>ha
+" "inoremap ' ''<esc>ba
+" inoremap " ""<esc>ha
+" 
+" inoremap () ()<esc>ha
+" inoremap {} {}<esc>ha
+" inoremap {<cr> {<cr>}<esc>kA<cr><esc>cc
+" inoremap [] []<esc>ha
+" "inoremap ' ''<esc>ba
+" inoremap "" ""<esc>ha
 
 
 " ---------------------------------------------------------------------------

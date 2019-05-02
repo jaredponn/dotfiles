@@ -54,6 +54,8 @@ alias ghci "stack ghci"
 alias editFish "n ~/.config/fish/config.fish"
 alias fishconf "n ~/.config/fish/config.fish"
 alias fishrc "n ~/.config/fish/config.fish"
+alias uofc "ssh jared.pon1@linux.cpsc.ucalgary.ca -Y"
+alias startwpa "sudo wpa_supplicant -B -Dnl80211 -i wlp3s0 -c/etc/wpa_supplicant/wpa_supplicant-wlp3s0.conf"
 
 ## modestly get yt song
 alias getsong "youtube-dl --extract-audio -o '~/Music/bin/%(title)s.%(ext)s' "
