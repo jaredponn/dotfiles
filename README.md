@@ -19,12 +19,20 @@ cd ~
 git clone https://github.com/jaredponn/Jared-s-Config-Files.gi://github.com/jaredponn/Jared-s-Config-Files.git 
 # changing directory to the repository
 cd Jared-s-Config-Files
+# update the sub modules
+git submodule update --init --recursive
 # running the file to symlink the config files to this repository
 ./link.sh
 ```
 
 ## Notes
- * I followed [this guy's](https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/) tutorial to install XMonad with stack. 
+ * I followed [this guy's](https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/) tutorial to install XMonad with stack. Here's a short summary of what to do to get this repo working:
+ ** Install stack.
+ ** Install GHC with stack by running `stack setup`.
+ ** Go to the `.xmonad` directory.
+ ** Run `stack init` so it'll generate the `stack.yaml` file.
+ ** Run `xmonad --recompile` and `xmonad --restart` to recompile and restart xmonad.
+
  * To get Haskell stack working with Void Linux, I got an error message of 
  ```bash
  No setup information found for ghc-8.4.3 on your platform.
