@@ -30,8 +30,9 @@ cd Jared-s-Config-Files
  No setup information found for ghc-8.4.3 on your platform.
  This probably means a GHC bindist has not yet been added for OS key 'linux64-ncurses6', 'linux64-tinfo6'.
  ```
- To fix this, go to `/lib` and run `sudo ln -s libncursesw.so.6 libtinfo.so.6`.
+ To fix this, go to `/lib` and run `# sudo ln -s libncursesw.so.6 libtinfo.so.6`.
 
+ * Chromium's borders do not play nicely with XMonad's borders provided. To get around this, go to `Settings` and find `Use system title bar and borders`. Enable that setting and it should work.
  
  
 
