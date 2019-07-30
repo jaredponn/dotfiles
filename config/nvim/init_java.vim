@@ -11,7 +11,7 @@ let g:clang_format#style_options = {
             \
             \"BasedOnStyle": "LLVM",
             \"Language": "Java",
-            \"IndentWidth": 8,
+            \"IndentWidth": 4,
             \"UseTab": "Always",
             \"BreakBeforeBraces": "Linux",
             \"AlwaysBreakBeforeMultilineStrings": "true",

@@ -6,7 +6,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'junegunn/fzf.vim' "fzf (fuzzy searching)
 Plug 'dracula/vim'  " color scheme
 Plug 'neomake/neomake'  "linting
-Plug 'tylerbrazier/vim-bracepair'
+"Plug 'tylerbrazier/vim-bracepair'
 
 " autocompletion
 " Plug 'Valloric/YouCompleteMe', { 'for': 'c,cpp,py,python',} "mainly for
@@ -192,10 +192,10 @@ autocmd InsertLeave * silent! pclose!
 "         endfunction"}}}
 
 " tab ieration
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<tab>"
+"inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+"inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<tab>"
 " fixes the weird multiple pressing enter for an enter key to work
-inoremap <expr> <CR> pumvisible() ? '<c-e><cr>' : '<cr>'
+"inoremap <expr> <CR> pumvisible() ? '<c-e><cr>' : '<cr>'
 
 
 " ---------------------------------------------------------------------------

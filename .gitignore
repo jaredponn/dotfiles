@@ -3,6 +3,8 @@ xmonad/.stack-work/
 xmonad/.stack-work
 xmonad/xmonad.errors
 xmonad/xmonad.hi
+xmonad/-lm
+xmonad/stack.yaml.lock
 xmonad/xmonad.o
 xmonad/xmonad-x86_64-linux
 config/mpd/database

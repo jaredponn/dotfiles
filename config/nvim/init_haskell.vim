@@ -7,10 +7,11 @@ let g:LanguageClient_serverCommands = {
     \ 'haskell': ['hie-wrapper'],
     \ }
 
-let g:LanguageClient_serverCommands = {
-    \ 'haskell': ['hie-wrapper', '-r', '~/Programs/symmetric-waddle/'],
-    \ }
+let g:LanguageClient_rootMarkers = ['*.cabal', 'stack.yaml']
+
 "\ 'haskell': ['hie-wrapper', '-r', '$YOURROOTHERE'],
+
+"let g:LanguageClient_serverCommands = { \ 'haskell': ['hie-wrapper', '-r', '~/Programs/cpsc'], \ }
 
 " ---------------------------------------------------------------------------
 "    bindings

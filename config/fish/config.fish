@@ -61,9 +61,11 @@ alias startwpa "sudo wpa_supplicant -B -Dnl80211 -i wlp3s0 -c/etc/wpa_supplicant
 alias getsong "youtube-dl --extract-audio -o '~/Music/bin/%(title)s.%(ext)s' "
 
 ## lower brightness
+alias realdim "echo 10 | sudo tee  /sys/class/backlight/intel_backlight/brightness"
 alias dim "echo 200 | sudo tee  /sys/class/backlight/intel_backlight/brightness"
 alias bright "echo 800 | sudo tee  /sys/class/backlight/intel_backlight/brightness"
 alias discord "flatpak run com.discordapp.Discord/x86_64/stable "
 
 ## adding .local/bin to the path. Needed for Haskell's Stack
 set -gx PATH /home/jared/.local/bin $PATH
+set -gx PATH /home/jared/go/bin $PATH

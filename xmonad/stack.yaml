@@ -43,7 +43,8 @@ packages:
 extra-deps: 
 - iwlib-0.1.0
 - alsa-mixer-0.3.0
-- dbus-1.2.1
+  #- dbus-1.2.1
+- dbus-0.10.15@sha256:0cbccdf3f249f7d1485643df6e1a70d360b02b467fdc37c61c73de7fb327336d,4079
 - parsec-numbers-0.1.0
 
 
