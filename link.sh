@@ -6,6 +6,7 @@ ln -s ~/Jared-s-Config-Files/config/mpd ~/.config/mpd
 ln -s ~/Jared-s-Config-Files/config/ncmpcpp ~/.config/ncmpcpp
 ln -s ~/Jared-s-Config-Files/config/nvim ~/.config/nvim
 ln -s ~/Jared-s-Config-Files/config/ume ~/.config/ume
+ln -s ~/Jared-s-Config-Files/zshrc ~/.zshrc
 
 ## deprecated
 ln -s ~/Jared-s-Config-Files/config/sakura ~/.config/sakura
