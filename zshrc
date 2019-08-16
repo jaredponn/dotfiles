@@ -23,5 +23,9 @@ alias n='nvim'
 alias zshrc='n ~/.zshrc'
 alias vimrc='n ~/Jared-s-Config-Files/config/nvim/init.vim'
 
+alias realdim='echo 10 | sudo tee  /sys/class/backlight/intel_backlight/brightness'
+alias dim='echo 200 | sudo tee  /sys/class/backlight/intel_backlight/brightness'
+alias bright='echo 800 | sudo tee  /sys/class/backlight/intel_backlight/brightness'
+
 # Path
 PATH=$PATH:~/.local/bin/
