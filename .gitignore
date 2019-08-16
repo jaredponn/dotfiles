@@ -1,6 +1,7 @@
 xmonad/.stack-work/*
 xmonad/.stack-work/
 xmonad/.stack-work
+xmonad/stack.yaml
 xmonad/xmonad.errors
 xmonad/xmonad.hi
 xmonad/-lm

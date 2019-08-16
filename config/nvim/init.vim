@@ -12,7 +12,7 @@ Plug 'neomake/neomake'  "linting
 " Plug 'Valloric/YouCompleteMe', { 'for': 'c,cpp,py,python',} "mainly for
 " Plug 'Valloric/YouCompleteMe', { 'for': 'c,cpp',} "mainly for
 
-Plug 'vim-scripts/a.vim', {'for' : 'c,cpp'} "switchign between header and c
+" Plug 'vim-scripts/a.vim', {'for' : 'c,cpp'} "switchign between header and c
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'autozimu/LanguageClient-neovim', {
                         \ 'branch': 'next',
@@ -20,10 +20,10 @@ Plug 'autozimu/LanguageClient-neovim', {
 
 " C++ sutff
 Plug 'rhysd/vim-clang-format', { 'for': 'c,cpp,java',} 
-Plug 'ludovicchabant/vim-gutentags', { 'for': 'c,cpp',} 
+" Plug 'ludovicchabant/vim-gutentags', { 'for': 'c,cpp',} 
 
 " commentor
-Plug 'tpope/vim-commentary'
+" Plug 'tpope/vim-commentary'
 
 call plug#end()
 

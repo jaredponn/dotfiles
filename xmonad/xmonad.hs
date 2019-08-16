@@ -45,8 +45,8 @@ shiftToWSOnCurrentScreen direction = CycleWS.shiftTo direction workSpacesOnCurre
 
 startUpActions :: X ()
 startUpActions = do
-    spawnOnce "compton --config ~/.xmonad/compton.conf"
-    spawnOnce "feh --bg-scale ~/.xmonad/background.jpg"
+    --spawnOnce "compton --config ~/.xmonad/compton.conf"
+    --spawnOnce "feh --bg-scale ~/.xmonad/background.jpg"
     spawnOnce "xmobar ~/.xmonad/upperxmobarconf"
 
     {- setWMName "LG3D" -}
