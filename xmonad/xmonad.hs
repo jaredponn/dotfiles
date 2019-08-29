@@ -168,15 +168,12 @@ openTerminalInFocusedDirectory = getFocusedPID          >>=
                                 (\case
                                         Just x -> do 
                                                         --debugPrint (show x) 
-                                                        val <- (io (runEitherT (queryProcessPathFromPidIfTerminal (Pid x) "ume")))
-                                                        debugPrint $ show val
-                                                              --(\case
-                                                              --        --(Right dir) -> debugPrint $ "exec " ++ myTerminal ++  "-d " ++ escapeTerminalPath dir
-                                                              --        --(Left (Err (0, _) )) -> debugPrint $ "exec " ++ myTerminal 
-                                                              --        --(Left errmsg) -> debugPrint $ show errmsg
-                                                              --        _ -> debugPrint "asdf"
-                                                              --)
-                                        Nothing -> debugPrint "asdf" >> return ()
+                                                        val <- (io (runEitherT (queryProcessPathFromPidIfTerminal (Pid x) myTerminal))) 
+                                                        case val of
+                                                                (Right dir) -> spawn $ "exec " ++ myTerminal ++  " -d " ++ escapeTerminalPath dir
+                                                                (Left (Err (0, _) )) -> spawn $ "exec " ++ myTerminal 
+                                                                (Left errmsg) -> debugPrint $ show errmsg
+                                        Nothing -> spawn $ "exec " ++ myTerminal 
                                 )
 
 getFocusedPID :: X (Maybe Int)
