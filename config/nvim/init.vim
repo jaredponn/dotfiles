@@ -31,7 +31,7 @@ call plug#end()
 filetype plugin indent on    
 
 set expandtab
-set incsearch "show charcters as typing"
+set incsearch "show charcters as typing
 set hlsearch
 
 set ignorecase
