@@ -20,12 +20,21 @@ RPS1="%F{blue}%*%f"
 alias ls='ls --color=auto'
 alias n='nvim'
 
+alias zathura='zathura --fork'
+
 alias zshrc='n ~/.zshrc'
 alias vimrc='n ~/Jared-s-Config-Files/config/nvim/init.vim'
+alias sshuofc="ssh jared.pon1@linux.cpsc.ucalgary.ca"
 
 alias realdim='echo 10 | sudo tee  /sys/class/backlight/intel_backlight/brightness'
 alias dim='echo 200 | sudo tee  /sys/class/backlight/intel_backlight/brightness'
 alias bright='echo 800 | sudo tee  /sys/class/backlight/intel_backlight/brightness'
+
+alias logicism='java -jar ~/Downloads/logisim-generic-2.7.1.jar'
+
+badresponse=("bad" "BADD" "wtf so badd" "haiyang god me bad carry mee" "badddd" "ME SO BAD WTFF")
+alias bad='git add . && git commit -m "${badresponse[$(($RANDOM % ${#badresponse[@]} + 1 ))]}" && git push'
+alias testing='echo "${badresponse[$(($RANDOM % ${#badresponse[@]} + 1 ))]}"'
 
 # Path
 PATH=$PATH:~/.local/bin/

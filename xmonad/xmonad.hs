@@ -67,6 +67,7 @@ startUpActions = do
     --spawnOnce "compton --config ~/.xmonad/compton.conf"
     --spawnOnce "feh --bg-scale ~/.xmonad/background.jpg"
     spawnOnce "xmobar ~/.xmonad/xmobarconf/upperxmobarconf"
+    spawnOnce "~/.screenlayout/home.sh"
 
     {- setWMName "LG3D" -}
 

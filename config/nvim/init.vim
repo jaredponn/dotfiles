@@ -1,6 +1,6 @@
 " I will nevre get FZF to work with neovim
-set rtp+=~/.fzf
-set rtp+=/usr/local/opt/fzf
+set rtp+=/usr/bin/fzf
+set rtp+=/usr/bin/
 
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'junegunn/fzf.vim' "fzf (fuzzy searching)
@@ -45,10 +45,13 @@ set encoding=utf-8
 
 syntax on
 
+" tab space setting
+set tabstop=4 shiftwidth=4 expandtab
+
 "set spell spelllang=en_us
 
 " copy and paste
-set clipboard=unnamedplus
+"set clipboard=unnamedplus
 
 " Setting the color scheme
 set background=dark
@@ -240,3 +243,5 @@ autocmd BufRead,BufEnter *.tex source ~/.config/nvim/init_tex.vim
 
 " md
 autocmd BufRead,BufEnter *.md source ~/.config/nvim/init_md.vim
+
+autocmd BufRead,BufEnter *.shader source ~/.config/nvim/init_shader.vim
