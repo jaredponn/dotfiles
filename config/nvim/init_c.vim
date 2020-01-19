@@ -1,10 +1,9 @@
 " ---------------------------------------------------------------------------
-"    YCMD
+"    LSP
 " ---------------------------------------------------------------------------
 
 let g:LanguageClient_serverCommands = {
   \ 'cpp': ['clangd'],
-  \ 'c': ['clangd'],
   \ }
 
 " ---------------------------------------------------------------------------
@@ -58,3 +57,5 @@ nnoremap <Leader>vsc :vsplit %<.c<cr>
 " tags and joy"
 nnoremap <Leader>t :Tags<cr>
 nnoremap <Leader>bt :Tags<cr>
+
+" call neomake#configure#automake('nw', 100)

@@ -1,2 +1,0 @@
-
-autocmd BufWritePost * :!make -C ../

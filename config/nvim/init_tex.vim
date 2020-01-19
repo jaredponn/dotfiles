@@ -7,7 +7,10 @@
 setlocal spell
 
 " autocompile when saving
-autocmd BufWritePost * :!make 
+augroup texAutoCommands
+    autocmd! texAutoCommands
+    au BufWritePost * :!make 
+augroup END
 
 "nnoremap <Leader>pdf :!zathura --fork %<.pdf<cr>
 "nnoremap <Leader>pdf :!zathura --fork %<.pdf<cr>

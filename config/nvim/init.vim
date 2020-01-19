@@ -3,16 +3,12 @@ set rtp+=/usr/bin/fzf
 set rtp+=/usr/bin/
 
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'junegunn/fzf.vim' "fzf (fuzzy searching)
-Plug 'dracula/vim'  " color scheme
-Plug 'neomake/neomake'  "linting
-"Plug 'tylerbrazier/vim-bracepair'
+" Plug 'junegunn/fzf.vim' "fzf (fuzzy searching)
+Plug 'dracula/vim', {'as' : 'dracula'}  " color scheme
+" Plug 'neomake/neomake'  "linting
+" Plug 'tylerbrazier/vim-bracepair'
 
 " autocompletion
-" Plug 'Valloric/YouCompleteMe', { 'for': 'c,cpp,py,python',} "mainly for
-" Plug 'Valloric/YouCompleteMe', { 'for': 'c,cpp',} "mainly for
-
-" Plug 'vim-scripts/a.vim', {'for' : 'c,cpp'} "switchign between header and c
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'autozimu/LanguageClient-neovim', {
                         \ 'branch': 'next',
@@ -183,8 +179,8 @@ let g:deoplete#auto_complete_delay = 1 " autocompleetion
 set completeopt=longest,menuone
 
 " making the autocmpletion a bit more pleaseant
-autocmd CompleteDone * silent! pclose!
-autocmd InsertLeave * silent! pclose!
+"autocmd CompleteDone * silent! pclose!
+"autocmd InsertLeave * silent! pclose!
 
 " inoremap <expr><C-n> pumvisible() ? "\<C-n>" :
 "         \ <SID>check_back_space() ? "\<TAB>" :
@@ -212,6 +208,9 @@ nnoremap <Leader>g :call LanguageClient_contextMenu()<CR>
 
 " type
 nnoremap <Leader>K :call LanguageClient#textDocument_definition() <CR>
+"nnoremap <s-k> :pc <CR> :call LanguageClient#explainErrorAtPoint() <CR> <C-w><C-w>
+
+nnoremap <C-_> hhh :pc <CR> :call LanguageClient#explainErrorAtPoint() <CR> 
 
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
@@ -220,28 +219,32 @@ nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 "    auto commands
 " ---------------------------------------------------------------------------
 " resize make the windows the same
-autocmd VimResized * exe "normal \<c-w>="
+augroup filetypeAutoCommands
+    autocmd! filetypeAutoCommands
 
-"set formatoptions-=cro " removes the shityy auto commenter
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-" NOTE Using BufEnter might be a better idea because there are some cases where BufRead will not tigger
-
-" C
-autocmd FileType c source ~/.config/nvim/init_c.vim
-autocmd BufRead,BufEnter *.c,*.h,*.cpp,*.java source ~/.config/nvim/init_c.vim
-autocmd BufRead,BufEnter *.java source ~/.config/nvim/init_java.vim
-
-" vimrc
-autocmd BufRead,BufEnter *.vim source ~/.config/nvim/init_vim.vim
-
-" haskell
-autocmd BufRead,BufEnter *.hs source ~/.config/nvim/init_haskell.vim
-
-" tex
-autocmd BufRead,BufEnter *.tex source ~/.config/nvim/init_tex.vim
-
-" md
-autocmd BufRead,BufEnter *.md source ~/.config/nvim/init_md.vim
-
-autocmd BufRead,BufEnter *.shader source ~/.config/nvim/init_shader.vim
+    au VimResized * exe "normal \<c-w>="
+    
+    "set formatoptions-=cro " removes the shityy auto commenter
+    au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+    
+    " NOTE Using BufEnter might be a better idea because there are some cases where BufRead will not tigger
+    
+    " C
+    " autocmd FileType c source ~/.config/nvim/init_c.vim
+    au BufRead,BufEnter *.cpp,*.h,*.c source ~/.config/nvim/init_c.vim
+    au BufRead,BufEnter *.java source ~/.config/nvim/init_java.vim
+    
+    " vimrc
+    au BufRead,BufEnter *.vim source ~/.config/nvim/init_vim.vim
+    
+    " haskell
+    au BufRead,BufEnter *.hs source ~/.config/nvim/init_haskell.vim
+    
+    " tex
+    au BufRead,BufEnter *.tex source ~/.config/nvim/init_tex.vim
+    
+    " md
+    au BufRead,BufEnter *.md source ~/.config/nvim/init_md.vim
+    
+    au BufRead,BufEnter *.shader source ~/.config/nvim/init_shader.vim
+augroup END
