@@ -24,17 +24,26 @@ alias zathura='zathura --fork'
 
 alias zshrc='n ~/.zshrc'
 alias vimrc='n ~/Jared-s-Config-Files/config/nvim/init.vim'
-alias sshuofc="ssh jared.pon1@linux.cpsc.ucalgary.ca"
+alias sshuofc="ssh -X jared.pon1@linux.cpsc.ucalgary.ca "
 
 alias realdim='echo 10 | sudo tee  /sys/class/backlight/intel_backlight/brightness'
 alias dim='echo 200 | sudo tee  /sys/class/backlight/intel_backlight/brightness'
 alias bright='echo 800 | sudo tee  /sys/class/backlight/intel_backlight/brightness'
+alias getsong="youtube-dl --extract-audio -o '~/Music/bin/%(title)s.%(ext)s' "
 
-alias logicism='java -jar ~/Downloads/logisim-generic-2.7.1.jar'
-
-badresponse=("bad" "BADD" "wtf so badd" "haiyang god me bad carry mee" "badddd" "ME SO BAD WTFF")
-alias bad='git add . && git commit -m "${badresponse[$(($RANDOM % ${#badresponse[@]} + 1 ))]}" && git push'
+badresponse=("litle did they knoww that mee baddddd" "haiyang god?!?!?!?!" "wtf so badd" "haiyang god me bad carry mee" "badddd" "ME SO BAD WTFF")
+alias bad='git pull && git add . && git commit -m "${badresponse[$(($RANDOM % ${#badresponse[@]} + 1 ))]}" && git push'
 alias testing='echo "${badresponse[$(($RANDOM % ${#badresponse[@]} + 1 ))]}"'
+
+alias feh='feh --auto-zoom'
+
+alias aoeu='setxkbmap us'
+alias asdf='setxkbmap dvorak'
+
+alias fd='cd $(find . -maxdepth 6 -type d | fzf) && ls'
+alias ff='n $(fzf --preview="bat --style=numbers --color=always {} | head -100")'
 
 # Path
 PATH=$PATH:~/.local/bin/
+
+ls
