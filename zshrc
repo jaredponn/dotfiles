@@ -43,6 +43,11 @@ alias asdf='setxkbmap dvorak'
 alias fd='cd $(find . -maxdepth 6 -type d | fzf) && ls'
 alias ff='n $(fzf --preview="bat --style=numbers --color=always {} | head -100")'
 
+alias wacom='xsetwacom set 16 MapToOutput DP1 && xsetwacom set 17 MapToOutput DP1'
+alias wacominfo='xsetwacom list devices && xrandr && echo "xsetwacom set <stylus> MapToOutput DP1"'
+
+alias screenshot='import -window root ~/screenshot.png'
+
 # Path
 PATH=$PATH:~/.local/bin/
 

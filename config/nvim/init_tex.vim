@@ -3,6 +3,8 @@
 "    bindings
 " ---------------------------------------------------------------------------
 
+syntax spell toplevel
+
 " spel checking
 setlocal spell
 

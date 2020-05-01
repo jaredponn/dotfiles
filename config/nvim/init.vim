@@ -56,7 +56,7 @@ hi! Normal ctermbg=NONE guibg=NONE
 set cursorline
  
 " disabling the mouse 
-set mouse=
+" set mouse=
 
 " ---------------------------------------------------------------------------
 "    Vim remaps
