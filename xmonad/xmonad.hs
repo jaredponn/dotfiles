@@ -1,284 +1,287 @@
-{-# LANGUAGE InstanceSigs #-}
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE OverloadedStrings #-}
-
-import XMonad
-import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.SetWMName
-
-import XMonad.Util.Run              (spawnPipe, runProcessWithInput)
-import XMonad.Util.EZConfig         (additionalKeys)
-import XMonad.Util.SpawnOnce
-import XMonad.Util.WindowProperties (getProp32s)
-
-import Data.Maybe
-import qualified Data.List as L
-import qualified Data.Text as T
-import qualified Data.String
-import qualified Data.Either
-
+-- XMonad
+import XMonad as X
 import qualified XMonad.StackSet as W
 
-import XMonad.Core
-import XMonad.Layout.Spacing
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.WindowArranger
-import XMonad.Layout.NoBorders
-import XMonad.Layout.Fullscreen
-import XMonad.Layout.Gaps
+-- XMonad.Contrib
+import qualified XMonad.Hooks.ManageDocks as XMonad.Contrib
+import qualified XMonad.Layout.Gaps as XMonad.Contrib
+import qualified XMonad.Hooks.DynamicLog as XMonad.Contrib
+import qualified XMonad.Util.Run as XMonad.Contrib
+import qualified XMonad.Util.Loggers as XMonad.Contrib
 
-import qualified XMonad.Hooks.EwmhDesktops 
-import qualified XMonad.Layout.IndependentScreens as IndependentScreens
-import qualified XMonad.Actions.CycleWS as CycleWS
-
-import qualified Foreign.C.Types
-import qualified System.Directory
-
-import qualified System.IO
+-- External libraries
+import qualified Graphics.X11.Xlib.Extras
+import qualified Graphics.X11.ExtraTypes.XF86
 import qualified System.Process
 
-import qualified GHC.IO.Exception
-import qualified System.IO
-import qualified Control.Monad
+-- Common data structures
+import Data.Map (Map)
+import qualified Data.Map as M 
 
-import qualified Codec.Binary.UTF8.String
-{- Workspaces -}
--- functions for AwesomeWM style multiple monitor setup
-getCurrentScreen :: X ScreenId
-getCurrentScreen = gets (W.screen . W.current . windowset)
+-- Haskell base
+import Data.Function
+import Data.Maybe
+import Data.List
+import Data.Tuple
+import Data.Char
+import Control.Arrow ((***))
+import Control.Monad
+import System.Exit
+import System.IO
 
-isWSOnScreen :: ScreenId -> WindowSpace -> Bool
-isWSOnScreen screen workspace = screen == IndependentScreens.unmarshallS (W.tag workspace)
+import qualified System.Exit 
 
-workSpacesOnCurrentScreen :: CycleWS.WSType
-workSpacesOnCurrentScreen = CycleWS.WSIs $ isWSOnScreen <$> getCurrentScreen
+-- Note:
+-- The module XMonad.Config is contains the default XMonad bindings for reference...;
+-- It can be found here:
+-- https://hackage.haskell.org/package/xmonad-0.15/docs/src/XMonad.Config.html
 
-moveToWSOnCurrentScreen:: Direction1D -> X ()
-moveToWSOnCurrentScreen direction = CycleWS.moveTo direction workSpacesOnCurrentScreen
-
-shiftToWSOnCurrentScreen:: Direction1D -> X ()
-shiftToWSOnCurrentScreen direction = CycleWS.shiftTo direction workSpacesOnCurrentScreen
-
-
-startUpActions :: X ()
-startUpActions = do
-    --spawnOnce "compton --config ~/.xmonad/compton.conf"
-    --spawnOnce "feh --bg-scale ~/.xmonad/background.jpg"
-    spawnOnce "xmobar ~/.xmonad/xmobarconf/upperxmobarconf"
-    spawnOnce "~/.screenlayout/home.sh"
-
-    {- setWMName "LG3D" -}
-
-{- Layout -}
-layout = gaps [(U, 20), (R, 8), (L, 8), (D, 20)] $ avoidStruts (spacing 2 $ ResizableTall 1 (2/100) (1/2) []) 
-                ||| Full
-
-{- Programs -}
-myTerminal = "ume"
-myBrowser = "firefox"
-myMusicPlayer = "ncmpcpp -b ~/.config/ncmpcpp/config"
-
-{- Colors -}
-focdBord = "#f8f8f2"
-normBord = "#282a36"
-
-{- Keys -}
-mKeys :: [((KeyMask, KeySym), X ())]
-mKeys = [ 
-        -- workspace navigation
-          ((modMask, xK_h), moveToWSOnCurrentScreen CycleWS.Prev )
-        , ((modMask .|. shiftMask, xK_h), shiftToWSOnCurrentScreen CycleWS.Prev)
-        , ((modMask, xK_l), moveToWSOnCurrentScreen CycleWS.Next)
-        , ((modMask .|. shiftMask, xK_l), shiftToWSOnCurrentScreen CycleWS.Next)
-
-        -- screen navigation
-        , ((modMask, xK_w), CycleWS.prevScreen)
-        , ((modMask .|. shiftMask, xK_w), CycleWS.shiftPrevScreen)
-        , ((modMask, xK_e), CycleWS.nextScreen)
-        , ((modMask .|. shiftMask, xK_e), CycleWS.shiftNextScreen)
-
-        -- application startup
-        , ((modMask , xK_Return), openTerminalInFocusedDirectory)
-
-        , ((modMask .|. shiftMask, xK_Return), spawn $ "exec " ++ myTerminal ++ " -d ~")  -- spawn terminal at home directotry
-        , ((modMask, xK_b), spawn myBrowser) -- open browser
-        , ((modMask .|. shiftMask, xK_b), spawn $ myBrowser ++ " --private-window")  -- open private instance of browser
-        , ((modMask, xK_n), spawn $ "exec " ++ myTerminal ++ " -x " ++ "'" ++ myMusicPlayer ++ "'")  -- open ncmpcpp
-        , ((modMask, xK_r), spawn "rofi -show run")  
-
-        -- volume control
-        , ((0, xK_F11 ), spawn  "amixer set 'Master' 2%-")
-        , ((0, xK_F12 ), spawn "amixer set 'Master' 2%+")
-
-        -- resizing windows
-        , ((modMask .|. controlMask , xK_h), sendMessage Shrink)  
-        , ((modMask .|. controlMask , xK_l), sendMessage Expand)  
-
-    ] where modMask = mod4Mask  -- prefer super
-
-------------
-
-main :: IO () 
+main :: IO ()
 main = do
-    xmobarHandle <- spawnPipe "xmobar ~/.xmonad/xmobarconf/lowerxmobarconf"
-    numberOfScreens <- IndependentScreens.countScreens
-    xmonad $ XMonad.Hooks.EwmhDesktops.ewmh def
-            { manageHook = manageDocks <+> manageHook def
-            , layoutHook = windowArrange layout
-            , startupHook = startUpActions
-            , workspaces = IndependentScreens.withScreens numberOfScreens $ map (:[]) ['1'..'9']
-            , terminal = myTerminal
-            , modMask =  mod4Mask
-            , borderWidth = 3
-            , logHook = dynamicLogWithPP xmobarPP
-                {
-                  ppOutput = System.IO.hPutStrLn xmobarHandle
-                , ppTitle = xmobarColor "#50fa7b" "" . shorten 50
-                , ppLayout = const ""
+    xmobarpipe <- XMonad.Contrib.spawnPipe "xmobar"
+    xmonad $ XMonad.Contrib.docks $ def
+        {
+            modMask = mod4Mask
+            , startupHook = configStartupHooks
+            , keys = configKeys
+
+            , logHook = XMonad.Contrib.dynamicLogWithPP $ def 
+                { XMonad.Contrib.ppOutput = hPutStrLn xmobarpipe 
+                , XMonad.Contrib.ppLayout = const ""
                 }
-        , focusedBorderColor = focdBord
-        , normalBorderColor = normBord
-        , focusFollowsMouse = False
-        , clickJustFocuses = False
-        {- , handleEventHook = handleEventHook def <+> XMonad.Hooks.EwmhDesktops.fullscreenEventHook -}
-        } `additionalKeys` mKeys
+
+            , layoutHook = configLayout
+            
+            , terminal = "termite"
+            , focusedBorderColor = "#f8f8f2"
+            , normalBorderColor = "#282a36"
+            , borderWidth = 3
+            
+            , focusFollowsMouse = False
+            , clickJustFocuses = False
+
+            , workspaces = map show [1..9]
+
+            , manageHook = configManageHook
+        }
+
+configManageHook :: ManageHook
+configManageHook = composeAll 
+    [  className =? "zoom" --> doFloat
+    ]
+
+configStartupHooks :: X ()
+configStartupHooks = do 
+    spawn "~/.screenlayout/home.sh"
+
+-- configLayout :: Layout Window
+-- configLayout = tiled ||| Mirror tiled ||| Full
+configLayout = XMonad.Contrib.avoidStruts 
+     $ tiled
+     -- $ (XMonad.Contrib.gaps [(XMonad.Contrib.U,5)] tiled )
+     -- $ (XMonad.Contrib.gaps [(XMonad.Contrib.U,5)] tiled )
+     ||| Full
+  where
+     -- default tiling algorithm partitions the screen into two panes
+     tiled   = Tall nmaster delta ratio
+
+     -- The default number of windows in the master pane
+     nmaster = 1
+
+     -- Default proportion of screen occupied by master pane
+     ratio   = 1/2
+
+     -- Percent of screen to increment by when resizing panes
+     delta   = 3/100
+
+configKeys :: XConfig Layout -> Map (KeyMask, KeySym) (X ())
+configKeys conf@(XConfig {X.modMask = modMask}) = M.fromList $
+    -- launching and killing programs
+    [ ( (modMask .|. shiftMask, xK_Return), spawn $ X.terminal conf) -- %! Launch terminal at root directory
+    , ( (modMask              , xK_Return)
+        , X.withDisplay $ \display -> 
+            X.withWindowSet $ \wset -> flip (maybe (spawn $ X.terminal conf)) (W.peek wset) 
+                $ \windowxid -> do
+                    netwmpidatom <- X.getAtom "_NET_WM_PID"
+                    windowprop32query <- X.io $ Graphics.X11.Xlib.Extras.getWindowProperty32 
+                        display 
+                        netwmpidatom 
+                        windowxid
+                    case windowprop32query of 
+                        Just [querypid] -> do
+                            let pid = show querypid
+                            -- spawn ("echo " ++ show windowxid ++ "aya" ++ show pid ++ concat ["/proc/" ++ show pid ++ "/comm"]++ " | xmessage -file -")
+                            (exeexitcode, exestdout, exestderr) <- X.io
+                                $ readProcessWithExitCode 
+                                    "cat"
+                                    ["/proc/" ++ pid ++ "/comm"]
+                                    ""
+                            (childexitcode, childstdout, childstderr) <- X.io
+                                $ readProcessWithExitCode 
+                                    "pgrep"
+                                    ["-P", pid]
+                                    ""
+                            let childpid = trim childstdout
+                            (cwdexitcode, cwdstdout, cwdstderr) <- X.io
+                                $ readProcessWithExitCode 
+                                    "readlink"
+                                    ["/proc/" ++ childpid ++ "/cwd"]
+                                    ""
+                            let childcwd = escapeDir $ trim cwdstdout
+                            -- spawn ("echo " ++ "exe stdout:" ++ show exestdout ++ " childstdout " ++ show childstdout ++ " final cwd: " ++ show childcwd ++ " | xmessage -file -")
+                            if exeexitcode == ExitSuccess
+                                && trim exestdout == (X.terminal conf)
+                                && childexitcode == ExitSuccess
+                                && cwdexitcode == ExitSuccess
+                                    then spawn $ (X.terminal conf ++ " -d " ++ childcwd )
+                                    else spawn $ X.terminal conf
+                        Nothing -> spawn $ X.terminal conf
+        -- Here are the steps...
+        -- 1. Get the pid of the focused process <PID>
+        -- 2. Check if the focused process is the terminal
+        -- 3. If it is, then continue, otherwise give up
+        -- 4. Get the children of the terminal process <PID> with `pgrep -P <PID>`
+        -- 5. If there is exactly one child, continue (hopefully the bash child), otherwise give up
+        --  (Not too sure about the guarantees of this step!)
+        -- 6. With the PID of the only child, <PIDC>, run `readlink /proc/<PIDC>/cwd` to get the working directory of the child
+        -- 7. If anything ``gave up", just spawn a terminal at the home directory!
+        
+        ) -- %! Launch terminal at previous terminal directory if it exists.
+    , ( (modMask              , xK_b     ), spawn $ "firefox") -- %! Launch browser
+    , ( (modMask .|. shiftMask, xK_b     ), spawn $ "firefox --private-window") -- %! Launch browser
+
+    -- , ((modMask,               xK_p     ), spawn "dmenu_run") -- %! Launch dmenu
+    -- , ((modMask .|. shiftMask, xK_p     ), spawn "gmrun") -- %! Launch gmrun
+    , ( (modMask .|. shiftMask, xK_c     ), kill) -- %! Close the focused window
+
+    , ( (modMask,               xK_space ), sendMessage NextLayout) -- %! Rotate through the available layout algorithms
+    , ( (modMask .|. shiftMask, xK_space ), setLayout $ X.layoutHook conf) -- %!  Reset the layouts on the current workspace to default
+
+    , ( (modMask,               xK_n     ), refresh) -- %! Resize viewed windows to the correct size
+
+    -- move focus up or down the window stack
+    , ( (modMask,               xK_Tab   ), windows W.focusDown) -- %! Move focus to the next window
+    , ( (modMask .|. shiftMask, xK_Tab   ), windows W.focusUp  ) -- %! Move focus to the previous window
+    , ( (modMask,               xK_j     ), windows W.focusDown) -- %! Move focus to the next window
+    , ( (modMask,               xK_k     ), windows W.focusUp  ) -- %! Move focus to the previous window
+    , ( (modMask,               xK_m     ), windows W.focusMaster  ) -- %! Move focus to the master window
+
+    -- Modifying sound 
+    -- https://hackage.haskell.org/package/X11-1.9.2/docs/Graphics-X11-ExtraTypes-XF86.html#v:xF86XK_AudioLowerVolume
+    , ( (noModMask, Graphics.X11.ExtraTypes.XF86.xF86XK_AudioLowerVolume), return ()) -- %! Move focus to the master window
 
 
+    -- modifying the window order
+    , ( (modMask .|. shiftMask, xK_m), windows W.swapMaster) -- %! Swap the focused window and the master window
+    , ( (modMask .|. shiftMask, xK_j), windows W.swapDown  ) -- %! Swap the focused window with the next window
+    , ( (modMask .|. shiftMask, xK_k), windows W.swapUp    ) -- %! Swap the focused window with the previous window
 
--- escapes the characters so that fish understands what directory we are using
-escapeTerminalPath :: String -> String
-escapeTerminalPath (x:xs) 
-        | escapeCharacter x = '\\' : x  : escapeTerminalPath xs
-        | otherwise = x : escapeTerminalPath xs
-escapeTerminalPath [] = []
+    --  resizing the master/slave ratio
+    , ( (modMask,               xK_h     ), sendMessage Shrink) -- %! Shrink the master area
+    , ( (modMask,               xK_l     ), sendMessage Expand) -- %! Expand the master area
 
--- provudes the chaacters to escape
-escapeCharacter :: Char -> Bool
-escapeCharacter x 
-        | x == ' ' = True
-        | otherwise = False
+    -- floating layer support
+    , ( (modMask,               xK_t     ), withFocused $ windows . W.sink) -- %! Push window back into tiling
 
-debugPrint :: String -> X ()
-debugPrint str = spawn $ "xmessage \"" ++ str ++ "\""
-
-
-openTerminalInFocusedDirectory :: X ()
-openTerminalInFocusedDirectory = getFocusedPID          >>= 
-                                (\case
-                                        Just x -> do 
-                                                        --debugPrint (show x) 
-                                                        val <- (io (runEitherT (queryProcessPathFromPidIfTerminal (Pid x) myTerminal))) 
-                                                        case val of
-                                                                (Right dir) -> spawn $ "exec " ++ myTerminal ++  " -d " ++ escapeTerminalPath dir
-                                                                (Left (Err (0, _) )) -> spawn $ "exec " ++ myTerminal 
-                                                                (Left errmsg) -> debugPrint $ show errmsg
-                                        Nothing -> spawn $ "exec " ++ myTerminal 
-                                )
-
-getFocusedPID :: X (Maybe Int)
-getFocusedPID = gets windowset >>= f
-        where
-                f ::  WindowSet -> X (Maybe Int)
-                f ws = case W.peek ws of
-                        Just xid -> getProp32s "_NET_WM_PID" xid >>= g
-                        Nothing -> return Nothing
-
-                g :: Maybe [Foreign.C.Types.CLong] -> X (Maybe Int)
-                g (Just (x:[])) = return $ Just $ (fromIntegral :: Foreign.C.Types.CLong -> Int) x
-                g _ = return Nothing
-
--- | Apply an 'X' operation to the currently focused window, if there is one.
-withFocused :: (Window -> X ()) -> X ()
-withFocused f = withWindowSet $ \w -> whenJust (W.peek w) f
-
-strip :: String -> String
-strip = T.unpack . T.strip . T.pack
-
-{- Command line wrappers -}
-newtype Pid = Pid Int deriving Eq
-
-instance Show Pid where
-        show (Pid x) = show x
-
-queryProcessPathFromPidIfTerminal :: Pid
-                                  -> String -- Terminal (just name of executable)
-                                  -> EitherT Err IO StdOut
-queryProcessPathFromPidIfTerminal pid term 
-                                = do  
-                                     p <- liftEitherT $ isPidProcessExecProcess pid term
-                                     liftEitherT $ trace $ "ZENMELE" ++ show p
-                                     if p 
-                                             then do 
-                                                     c <- getChildProcessesFromPid pid 
-                                                     if length c == 1
-                                                             then getExeWorkingPathFromPid $ Pid $ read $ head c
-                                                             else EitherT $ return $ Left $ Err $ (0, "")
-                                             else EitherT $ return $ Left $ Err $ (0, "")
-                                           
-
-isPidProcessExecProcess :: Pid 
-                        -> String  -- Process (just name of executable not full path)
-                        -> IO Bool
-isPidProcessExecProcess pid exec =  do
-                                       a <- runEitherT $ getExePathFromPid pid 
-                                       b <- runEitherT $ getExePathFromExe exec
-
-                                       if Data.Either.isRight a && Data.Either.isRight b
-                                        then return (a == b)
-                                        else return False
+    -- increase or decrease number of windows in the master area
+    , ( (modMask              , xK_comma ), sendMessage (IncMasterN 1)) -- %! Increment the number of windows in the master area
+    , ( (modMask              , xK_period), sendMessage (IncMasterN (-1))) -- %! Deincrement the number of windows in the master area
 
 
+    -- quit, or restart
+    , ( (modMask .|. shiftMask, xK_q     ), io (System.Exit.exitWith System.Exit.ExitSuccess)) -- %! Quit xmonad
+    , ( (modMask              , xK_q     ), spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi") -- %! Restart xmonad
 
--- uses which and realpath to get the path of an exe
--- $ realpath $(which <name of exe>)
-getExePathFromExe :: String -> EitherT Err IO StdOut
-getExePathFromExe exe = execAndReadProcess "which" [exe] ""             >>=
-                \x  -> execAndReadProcess "realpath" [x] ""             >>=
-                \x' -> return . strip $ x'
+    , ( (modMask .|. shiftMask, xK_slash ), helpCommand) -- %! Run xmessage with a summary of the default keybindings (useful for beginners)
+    -- repeat the binding for non-American layout keyboards
+    , ( (modMask              , xK_question), helpCommand) -- %! Run xmessage with a summary of the default keybindings (useful for beginners)
+    ]
+    ++
+    -- mod-[1..9] %! Switch to workspace N
+    -- mod-shift-[1..9] %! Move client to workspace N
+    [ ( (m .|. modMask, k), X.windows $ f i)
+        | (i, k) <- zip (X.workspaces conf) [xK_1 .. xK_9]
+        -- , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
+        , (f, m) <- 
+            [ (W.view, noModMask)
+            , (W.greedyView, controlMask)
+            , (W.shift, shiftMask)
+            ]
+    ]
+    ++
+    -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
+    -- mod-shift-{w,e,r} %! Move client to screen 1, 2, or 3
+    -- OLD DEFAULT XMONAD:
+    -- [ ((m .|. modMask, key), X.screenWorkspace sc 
+    --     >>= flip whenJust (windows . f))
+    --     | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
+    --     , (f, m) <- [(W.view, noModMask), (W.shift, shiftMask)]
+    -- ]
+    -- mod-{w,e} %! Cycle to physical/Xinerama screens
+    -- mod-shift-{w,e} %! Move client to screen by cycling
+    [ ( (m .|. modMask, xK_w)
+        , X.withWindowSet $ \wset -> do
+            let curscreenid = W.screen $ W.current wset  
+                visiblescreensids = fmap W.screen $ W.visible wset  
+                prevscreen = 
+                    head
+                    $ tail
+                    $ cycle
+                    $ (curscreenid:)
+                    -- we are interested in the screens which come before the
+                    -- current screen..
+                    $ uncurry (<>) 
+                    $ (reverse . sort *** reverse . sort)
+                    $ partition (<=curscreenid) visiblescreensids
+                -- Here's what it does...
+                -- 1) Given screens [0,1,2,3] with focus on 1
+                -- 2) Partition to ([0], [2,3])
+                -- 3) Sort both partitions in reverse order ([0], [3,2])
+                -- 4) Concat together [0,3,2]
+                -- 5) Prepend the focused screen (in case there are no other screens) [1,0,3,2]
+                -- 6) Cycle the list [1,0,3,2, .... ]
+                -- 7) Ignore the first element of the list [0,3,2, .... ] 
+                --  (which always corresponds to the current screen) 
+                -- 8) Then, take the head as the previous screen i.e.,  0
+            prevscreenworkspace <- X.screenWorkspace prevscreen
+            whenJust prevscreenworkspace (windows . f)
+        )
+        | (f, m) <- [(W.view, noModMask), (W.shift, shiftMask)]
+    ]
+    ++
+    -- mostly duplicated code for xK_e
+    [ ( (m .|. modMask, xK_e)
+        , X.withWindowSet $ \wset -> do
+            let curscreenid = W.screen $ W.current wset  
+                visiblescreensids = fmap W.screen $ W.visible wset  
+                nextscreen = 
+                    head
+                    $ tail
+                    $ cycle
+                    $ (curscreenid:)
+                    $ uncurry (<>) 
+                    $ (sort *** reverse . sort)
+                    $ partition (>=curscreenid) visiblescreensids
+            nextscreenworkspace <- X.screenWorkspace nextscreen
+            whenJust nextscreenworkspace (windows . f)
+        )
+        | (f, m) <- [(W.view, noModMask), (W.shift, shiftMask)]
+    ]
+  where
+    helpCommand :: X ()
+    helpCommand = spawn ("echo " ++ show help ++ " | xmessage -file -")
 
--- uses which and realpath to get the path of an exe
--- $ readlink /proc/<PID>/exe
-getExePathFromPid :: Pid -> EitherT Err IO StdOut
-getExePathFromPid pid = strip <$> execAndReadProcess "readlink" ["/proc/"++ show pid ++ "/exe"] ""
+    help = ""
 
--- uses which and realpath to get the path of an exe
--- $ readlink /proc/<PID>/cwd
-getExeWorkingPathFromPid :: Pid -> EitherT Err IO StdOut
-getExeWorkingPathFromPid pid = strip <$> execAndReadProcess "readlink" ["/proc/"++ show pid ++ "/cwd"] ""
-
--- gets the PID of the child process
--- $ pgrep -P <int of the process>
-getChildProcessesFromPid :: Pid -> EitherT Err IO [StdOut]
-getChildProcessesFromPid pid = execAndReadProcess "pgrep" ["-P", show pid] "" >>= (return . lines)
-
-{- readProcessExitCode -}
-type Exec = String
-type Arg = String
-type StdIn = String
-type StdOut = String
-
-type ErrCode = Int
-type StdErr = String
-
-newtype Err = Err (ErrCode, StdErr) deriving Eq
-instance Show Err where
-        show (Err (code, stderr)) = "Error code: " ++ show code ++ "\n StdErr: " ++ stderr
-
-execAndReadProcess :: Exec -> [Arg] -> StdIn -> EitherT Err IO StdOut
-execAndReadProcess exec args stdin = EitherT $ runProcessWithInputWithErrorCode exec args stdin >>= 
-                                        (\case 
-                                            (GHC.IO.Exception.ExitSuccess, stdout, _) 
-                                                            -> return $ Right stdout 
-                                            (GHC.IO.Exception.ExitFailure n, _, stderr) 
-                                                            ->  return $ Left $ Err (n, stderr)
-                                        )                                 
--- | Returns the output and stdErr
-runProcessWithInputWithErrorCode :: MonadIO m => Exec -> [Arg] -> StdIn -> m (GHC.IO.Exception.ExitCode, StdOut, StdErr)
-runProcessWithInputWithErrorCode cmd args input = io $ do
-        (pin, pout, perr, phand) <- System.Process.runInteractiveProcess (Codec.Binary.UTF8.String.encodeString cmd)
-                                            (map Codec.Binary.UTF8.String.encodeString args) Nothing Nothing
+-- This modified readProcessWithExitCode seems to work with XMonad in place
+-- of the default System.Process.readProcessWithExitCode which does not work!
+readProcessWithExitCode :: 
+    FilePath ->                     -- filename of executable
+    [String] ->                     -- arguments
+    String ->                       -- stdin
+    IO (ExitCode, String, String)   -- (exit code, stdout, stderr)
+readProcessWithExitCode cmd args input = io $ do
+        (pin, pout, perr, phand) <- System.Process.runInteractiveProcess cmd args Nothing Nothing
         System.IO.hPutStr pin input
         System.IO.hClose pin
         output <- System.IO.hGetContents pout
@@ -288,55 +291,26 @@ runProcessWithInputWithErrorCode cmd args input = io $ do
         merrcode <- System.Process.getProcessExitCode phand
         let errcode = case merrcode of 
                         (Just x) -> x
-                        Nothing -> GHC.IO.Exception.ExitSuccess
+                        Nothing -> ExitSuccess
 
         System.IO.hClose pout
         System.IO.hClose perr
         -- no need to waitForProcess, we ignore SIGCHLD
         return (errcode, output, erroutput)
 
-{- EitherT -}
-newtype EitherT e m a = EitherT { runEitherT :: m (Either e a) }
+-- trims the whitespace from a string according to Data.isSpace
+trim :: 
+    String ->
+    String 
+trim = let f = reverse . dropWhile isSpace in f . f
 
-instance Functor f => Functor (EitherT e f) where
-        fmap f (EitherT n) = EitherT $ fmap f' n
-                where 
-                        f' (Left e) = Left e
-                        f' (Right a) = Right $ f a 
-
-instance Applicative f => Applicative (EitherT e f) where
-        pure n = EitherT $ pure . Right $ n 
-        (EitherT f) <*> (EitherT n) = EitherT $ f' <*> n
-                where
-                        f' = (<*>) <$> f
-
-instance Monad m => Monad (EitherT e m) where
-        return = pure
-        (EitherT n) >>= f = EitherT $ n >>= (\case
-                                                Left a -> return $ Left a
-                                                Right a -> runEitherT $ f a
-                                            )
-
-liftEitherT :: Monad m => m a -> EitherT e m a
-liftEitherT n = EitherT $ n >>= (return . Right)
-
-{- MaybeT -}
-newtype MaybeT m a = MaybeT { runMaybeT :: m (Maybe a) }
-
-instance Functor f => Functor (MaybeT f) where
-        fmap :: (a -> b) -> MaybeT f a -> MaybeT f b
-        fmap f n = MaybeT $ (f <$>) <$> runMaybeT n
-
-instance Applicative f => Applicative (MaybeT f) where
-        pure :: Applicative f => a -> MaybeT f a
-        pure = MaybeT . pure . Just
-
-        (<*>) (MaybeT f) (MaybeT n) = MaybeT $ fmap (<*>) f <*> n
-
-instance Monad m => Monad (MaybeT m) where
-        return = pure
-        (>>=) n f = let n' = runMaybeT n
-                        in MaybeT $ n' >>= (\case 
-                                                (Just x') -> runMaybeT $ f x'
-                                                Nothing -> return Nothing)
-
+-- escapes the directory
+escapeDir ::
+    FilePath ->
+    FilePath 
+escapeDir = foldr f []
+  where
+    f ' ' = (['\\', ' ']++)
+    f '\"' = (['\\', '\"']++)
+    f '\'' = (['\\', '\'']++)
+    f n = (n:)
