@@ -149,6 +149,7 @@ configKeys conf@(XConfig {X.modMask = modMask}) = M.fromList $
         ) -- %! Launch terminal at previous terminal directory if it exists.
     , ( (modMask              , xK_b     ), spawn $ "firefox") -- %! Launch browser
     , ( (modMask .|. shiftMask, xK_b     ), spawn $ "firefox --private-window") -- %! Launch browser
+    , ( (modMask              , xK_x     ), spawn $ "xournalpp")                -- %! Launch xournalpp
 
     -- , ((modMask,               xK_p     ), spawn "dmenu_run") -- %! Launch dmenu
     -- , ((modMask .|. shiftMask, xK_p     ), spawn "gmrun") -- %! Launch gmrun
@@ -168,8 +169,10 @@ configKeys conf@(XConfig {X.modMask = modMask}) = M.fromList $
 
     -- Modifying sound 
     -- https://hackage.haskell.org/package/X11-1.9.2/docs/Graphics-X11-ExtraTypes-XF86.html#v:xF86XK_AudioLowerVolume
-    , ( (noModMask, Graphics.X11.ExtraTypes.XF86.xF86XK_AudioLowerVolume), return ()) -- %! Move focus to the master window
-
+    , ( (noModMask, Graphics.X11.ExtraTypes.XF86.xF86XK_AudioLowerVolume), spawn "pulsemixer --change-volume -5") 
+        -- %! Decrease volume
+    , ( (noModMask, Graphics.X11.ExtraTypes.XF86.xF86XK_AudioRaiseVolume), spawn "pulsemixer --change-volume +5") 
+        -- %! Increase volume
 
     -- modifying the window order
     , ( (modMask .|. shiftMask, xK_m), windows W.swapMaster) -- %! Swap the focused window and the master window
