@@ -35,7 +35,7 @@ PS1="\[\033[38;5;6m\][\@]\[$(tput sgr0)\] \[\033[01;36m\][\u@\h\[\033[01;37m\] \
 # if [ -z "$SSH_AUTH_SOCK" ]
 # then
 #     eval `ssh-agent -s`
-#     ssh-add ~/.ssh/jaredponn
+#     ssh-add 
 # fi
 
 if [ ! -S ~/.ssh/ssh_auth_sock ]
