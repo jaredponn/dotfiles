@@ -32,6 +32,17 @@ PS1="\[\033[38;5;6m\][\@]\[$(tput sgr0)\] \[\033[01;36m\][\u@\h\[\033[01;37m\] \
 # the parent process...
 # Then, add the required keys by 
 # ssh-add ~/.ssh/id_ed234
+# if [ -z "$SSH_AUTH_SOCK" ]
+# then
+#     eval `ssh-agent -s`
+#     ssh-add ~/.ssh/jaredponn
+# fi
 
-
+if [ ! -S ~/.ssh/ssh_auth_sock ]
+then
+  eval `ssh-agent`
+  ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
+fi
+export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+ssh-add -l > /dev/null || ssh-add
 
