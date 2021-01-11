@@ -52,7 +52,7 @@ main = do
 
             , layoutHook = configLayout
             
-            , terminal = "termite"
+            , terminal = "alacritty"
             , focusedBorderColor = "#f8f8f2"
             , normalBorderColor = "#282a36"
             , borderWidth = 3
@@ -68,6 +68,8 @@ main = do
 configManageHook :: ManageHook
 configManageHook = composeAll 
     [  className =? "zoom" --> doFloat
+    ,  className =? "wechat.exe" --> doFloat
+    ,  className =? "wechat" --> doFloat
     ]
 
 configStartupHooks :: X ()
@@ -133,7 +135,7 @@ configKeys conf@(XConfig {X.modMask = modMask}) = M.fromList $
                                 && trim exestdout == (X.terminal conf)
                                 && childexitcode == ExitSuccess
                                 && cwdexitcode == ExitSuccess
-                                    then spawn $ (X.terminal conf ++ " -d " ++ childcwd )
+                                    then spawn $ (X.terminal conf ++ " --working-directory " ++ childcwd )
                                     else spawn $ X.terminal conf
                         Nothing -> spawn $ X.terminal conf
         -- Here are the steps...
@@ -150,6 +152,8 @@ configKeys conf@(XConfig {X.modMask = modMask}) = M.fromList $
     , ( (modMask              , xK_b     ), spawn $ "firefox") -- %! Launch browser
     , ( (modMask .|. shiftMask, xK_b     ), spawn $ "firefox --private-window") -- %! Launch browser
     , ( (modMask              , xK_x     ), spawn $ "xournalpp")                -- %! Launch xournalpp
+    , ( (noModMask            , xK_Print ), spawn $ "flameshot gui")           
+        -- %! Open flameshot for screenshots
 
     -- , ((modMask,               xK_p     ), spawn "dmenu_run") -- %! Launch dmenu
     -- , ((modMask .|. shiftMask, xK_p     ), spawn "gmrun") -- %! Launch gmrun

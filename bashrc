@@ -7,6 +7,11 @@
 
 alias ls='ls --color=auto'
 alias n='nvim'
+alias zathura='zathura --fork'
+alias pdflatex='pdflatex -interaction=nonstopmode'
+
+alias bashrc='n ~/.bashrc'
+alias xmonadrc='n ~/.xmonad/xmonad.hs'
 
 alias dim='echo 2000 | sudo tee /sys/class/backlight/intel_backlight/brightness'
 
@@ -37,7 +42,6 @@ PS1="\[\033[38;5;6m\][\@]\[$(tput sgr0)\] \[\033[01;36m\][\u@\h\[\033[01;37m\] \
 #     eval `ssh-agent -s`
 #     ssh-add 
 # fi
-
 if [ ! -S ~/.ssh/ssh_auth_sock ]
 then
   eval `ssh-agent`
@@ -45,4 +49,3 @@ then
 fi
 export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
 ssh-add -l > /dev/null || ssh-add
-
