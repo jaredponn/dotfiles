@@ -153,7 +153,7 @@ configKeys conf@(XConfig {X.modMask = modMask}) = M.fromList $
     , ( (modMask .|. shiftMask, xK_b     ), spawn $ "firefox --private-window") -- %! Launch browser
     , ( (modMask              , xK_x     ), spawn $ "xournalpp")                -- %! Launch xournalpp
     , ( (modMask              , xK_d     )
-        , spawn $ "source ~/.xmonad/xmonadDmenu.sh -b -l 1 -fn 'Noto Sans-100'"
+        , spawn $ "source ~/.xmonad/xmonadDmenu.sh"
       ) -- %! runs dmenu from the script
     , ( (noModMask            , xK_Print ), spawn $ "flameshot gui")           
         -- %! Open flameshot for screenshots
