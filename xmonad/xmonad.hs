@@ -60,7 +60,7 @@ main = do
             , focusFollowsMouse = False
             , clickJustFocuses = False
 
-            , workspaces = map show [1..9]
+            , workspaces = map show ([1..9] ++ [0])
 
             , manageHook = configManageHook
         }
@@ -149,8 +149,8 @@ configKeys conf@(XConfig {X.modMask = modMask}) = M.fromList $
         -- 7. If anything ``gave up", just spawn a terminal at the home directory!
         
         ) -- %! Launch terminal at previous terminal directory if it exists.
-    , ( (modMask              , xK_b     ), spawn $ "firefox") -- %! Launch browser
-    , ( (modMask .|. shiftMask, xK_b     ), spawn $ "firefox --private-window") -- %! Launch browser
+    , ( (modMask              , xK_b     ), spawn $ "chromium") -- %! Launch browser
+    , ( (modMask .|. shiftMask, xK_b     ), spawn $ "chromium --incognito") -- %! Launch browser
     , ( (modMask              , xK_x     ), spawn $ "xournalpp")                -- %! Launch xournalpp
     , ( (modMask              , xK_d     )
         , spawn $ "source ~/.xmonad/xmonadDmenu.sh"
@@ -210,7 +210,7 @@ configKeys conf@(XConfig {X.modMask = modMask}) = M.fromList $
     -- mod-[1..9] %! Switch to workspace N
     -- mod-shift-[1..9] %! Move client to workspace N
     [ ( (m .|. modMask, k), X.windows $ f i)
-        | (i, k) <- zip (X.workspaces conf) [xK_1 .. xK_9]
+        | (i, k) <- zip (X.workspaces conf) ([xK_1 .. xK_9] ++ [xK_0])
         -- , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
         , (f, m) <- 
             [ (W.view, noModMask)
@@ -277,6 +277,10 @@ configKeys conf@(XConfig {X.modMask = modMask}) = M.fromList $
         )
         | (f, m) <- [(W.view, noModMask), (W.shift, shiftMask)]
     ]
+
+    -- Resizing a floating window:
+    -- mod + left dragging is moving a floating window..
+    -- mod + right dragging is moving a resizing a floating window..
   where
     helpCommand :: X ()
     helpCommand = spawn ("echo " ++ show help ++ " | xmessage -file -")

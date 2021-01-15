@@ -23,6 +23,7 @@ alias dim='echo 2000 | sudo tee /sys/class/backlight/intel_backlight/brightness'
 # xrandr
 # Then, with the wacom <ID> (should be a number), and the screen <SCREEN> run
 # xsetwacom set <ID> MapToOutput <SCREEN>
+alias tabletSetting='xsetwacom set 12 MapToOutput HEAD-1'
 
 
 PS1="\[\033[38;5;6m\][\@]\[$(tput sgr0)\] \[\033[01;36m\][\u@\h\[\033[01;37m\] \w\[\033[01;36m\]]\$\[\033[00m\] "
@@ -49,3 +50,12 @@ then
 fi
 export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
 ssh-add -l > /dev/null || ssh-add
+
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+
+# Used to prevent the computer from sleeping
+# while in a zoom meeting (well in general actually..)
+# Actually, I'm pretty sure this only needs to be run once, not
+# every time I load the bashrc...
+xset s off -dpms
