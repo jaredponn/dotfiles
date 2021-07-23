@@ -233,26 +233,29 @@ configKeys conf@(XConfig {X.modMask = modMask}) = M.fromList $
         , X.withWindowSet $ \wset -> do
             let curscreenid = W.screen $ W.current wset  
                 visiblescreensids = fmap W.screen $ W.visible wset  
-                prevscreen = 
-                    head
-                    $ tail
-                    $ cycle
-                    $ (curscreenid:)
-                    -- we are interested in the screens which come before the
-                    -- current screen..
-                    $ uncurry (<>) 
-                    $ (reverse . sort *** reverse . sort)
-                    $ partition (<=curscreenid) visiblescreensids
-                -- Here's what it does...
-                -- 1) Given screens [0,1,2,3] with focus on 1
-                -- 2) Partition to ([0], [2,3])
-                -- 3) Sort both partitions in reverse order ([0], [3,2])
-                -- 4) Concat together [0,3,2]
-                -- 5) Prepend the focused screen (in case there are no other screens) [1,0,3,2]
-                -- 6) Cycle the list [1,0,3,2, .... ]
-                -- 7) Ignore the first element of the list [0,3,2, .... ] 
-                --  (which always corresponds to the current screen) 
-                -- 8) Then, take the head as the previous screen i.e.,  0
+                prevscreen 
+                    | not $ null visiblescreensids = 
+                        head
+                        $ tail
+                        $ cycle
+                        $ (curscreenid:)
+                        -- we are interested in the screens which come before the
+                        -- current screen..
+                        $ uncurry (<>) 
+                        $ (reverse *** reverse )
+                        $ partition (<=curscreenid) 
+                        $ sort visiblescreensids
+                    -- Here's what it does...
+                    -- 1) Given screens [0,1,2,3] with focus on 1
+                    -- 2) Partition to ([0], [2,3])
+                    -- 3) Sort both partitions in reverse order ([0], [3,2])
+                    -- 4) Concat together [0,3,2]
+                    -- 5) Prepend the focused screen (in case there are no other screens) [1,0,3,2]
+                    -- 6) Cycle the list [1,0,3,2, .... ]
+                    -- 7) Ignore the first element of the list [0,3,2, .... ] 
+                    --  (which always corresponds to the current screen) 
+                    -- 8) Then, take the head as the previous screen i.e.,  0
+                    | otherwise = curscreenid
             prevscreenworkspace <- X.screenWorkspace prevscreen
             whenJust prevscreenworkspace (windows . f)
         )
@@ -264,14 +267,18 @@ configKeys conf@(XConfig {X.modMask = modMask}) = M.fromList $
         , X.withWindowSet $ \wset -> do
             let curscreenid = W.screen $ W.current wset  
                 visiblescreensids = fmap W.screen $ W.visible wset  
-                nextscreen = 
-                    head
-                    $ tail
-                    $ cycle
-                    $ (curscreenid:)
-                    $ uncurry (<>) 
-                    $ (sort *** reverse . sort)
-                    $ partition (>=curscreenid) visiblescreensids
+                nextscreen 
+                    | not $ null visiblescreensids = 
+                        head
+                        $ tail
+                        $ cycle
+                        -- can't remember exactly why this needs to be commented out, but it appears to work wihtout it.
+                        -- $ (curscreenid:)
+                        $ uncurry (flip (<>))
+                        $ (reverse *** reverse )
+                        $ partition (>=curscreenid) 
+                        $ sort visiblescreensids
+                    | otherwise =  curscreenid
             nextscreenworkspace <- X.screenWorkspace nextscreen
             whenJust nextscreenworkspace (windows . f)
         )
