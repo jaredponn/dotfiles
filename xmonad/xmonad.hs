@@ -60,7 +60,7 @@ main = do
             , focusFollowsMouse = False
             , clickJustFocuses = False
 
-            , workspaces = map show ([1..9] ++ [0])
+            , workspaces = map show ([1..9] ++ [0]) ++ ["-", "="]
 
             , manageHook = configManageHook
         }
@@ -96,8 +96,43 @@ configLayout = XMonad.Contrib.avoidStruts
      -- Percent of screen to increment by when resizing panes
      delta   = 3/100
 
+{- To find key codes, search in
+@
+/usr/include/X11/keysymdef.h
+@
+and note that XK* becomes xK*.
+To find the actual key code, type 
+@
+xev
+@
+in the terminal, and press the key you want.
+Something like 
+@
+KeyPress event, serial 32, synthetic NO, window 0xda00001,
+    root 0x93b, subw 0x0, time 3199770520, (314,465), root:(3081,468),
+    state 0x0, keycode 20 (keysym 0x2d, minus), same_screen YES,
+    XLookupString gives 1 bytes: (2d) "-"
+    XmbLookupString gives 1 bytes: (2d) "-"
+    XFilterEvent returns: False
+@
+will show up, and we're interested in
+@
+state 0x0, keycode 20 (keysym 0x2d, minus), same_screen YES,
+@
+which tells us that we want to use the key code 0x002d, which corresponds
+to
+@
+XK_minus
+@
+in
+@
+/usr/include/X11/keysymdef.h
+@
+
+-}
 configKeys :: XConfig Layout -> Map (KeyMask, KeySym) (X ())
-configKeys conf@(XConfig {X.modMask = modMask}) = M.fromList $
+configKeys conf@(XConfig {X.modMask = modMask}) = (`M.union` X.keys X.def conf) $ M.fromList $
+-- configKeys conf@(XConfig {X.modMask = modMask}) = M.fromList $
     -- launching and killing programs
     [ ( (modMask .|. shiftMask, xK_Return), spawn $ X.terminal conf) -- %! Launch terminal at root directory
     , ( (modMask              , xK_Return)
@@ -210,7 +245,7 @@ configKeys conf@(XConfig {X.modMask = modMask}) = M.fromList $
     -- mod-[1..9] %! Switch to workspace N
     -- mod-shift-[1..9] %! Move client to workspace N
     [ ( (m .|. modMask, k), X.windows $ f i)
-        | (i, k) <- zip (X.workspaces conf) ([xK_1 .. xK_9] ++ [xK_0])
+        | (i, k) <- zip (X.workspaces conf) ([xK_1 .. xK_9] ++ [xK_0, xK_minus, xK_equal])
         -- , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
         , (f, m) <- 
             [ (W.view, noModMask)
@@ -242,7 +277,7 @@ configKeys conf@(XConfig {X.modMask = modMask}) = M.fromList $
                         -- we are interested in the screens which come before the
                         -- current screen..
                         $ uncurry (<>) 
-                        $ (reverse *** reverse )
+                        $ (reverse *** reverse)
                         $ partition (<=curscreenid) 
                         $ sort visiblescreensids
                     -- Here's what it does...
@@ -284,7 +319,6 @@ configKeys conf@(XConfig {X.modMask = modMask}) = M.fromList $
         )
         | (f, m) <- [(W.view, noModMask), (W.shift, shiftMask)]
     ]
-
     -- Resizing a floating window:
     -- mod + left dragging is moving a floating window..
     -- mod + right dragging is moving a resizing a floating window..
