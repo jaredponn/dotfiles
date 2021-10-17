@@ -27,3 +27,6 @@ I am using NixOS.
  To fix this, go to `/lib` and run `# sudo ln -s libncursesw.so.6 libtinfo.so.6`.
 
  * Chromium's borders do not play nicely with XMonad's borders provided. To get around this, go to `Settings` and find `Use system title bar and borders`. Enable that setting and it should work.
+
+ ## qutebrowser
+ ":help" to view help page

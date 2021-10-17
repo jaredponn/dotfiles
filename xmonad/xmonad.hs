@@ -184,8 +184,12 @@ configKeys conf@(XConfig {X.modMask = modMask}) = (`M.union` X.keys X.def conf) 
         -- 7. If anything ``gave up", just spawn a terminal at the home directory!
         
         ) -- %! Launch terminal at previous terminal directory if it exists.
-    , ( (modMask              , xK_b     ), spawn $ "chromium") -- %! Launch browser
-    , ( (modMask .|. shiftMask, xK_b     ), spawn $ "chromium --incognito") -- %! Launch browser
+    -- Old times we used chromium
+    -- , ( (modMask              , xK_b     ), spawn $ "chromium") -- %! Launch browser
+    -- , ( (modMask .|. shiftMask, xK_b     ), spawn $ "chromium --incognito") -- %! Launch browser
+    , ( (modMask              , xK_b     ), spawn $ "qutebrowser") -- %! Launch browser
+    , ( (modMask .|. shiftMask, xK_b     ), spawn $ "qutebrowser --target private-window") -- %! Launch browser
+
     , ( (modMask              , xK_x     ), spawn $ "xournalpp")                -- %! Launch xournalpp
 
     , ( (noModMask            , xK_Print ), spawn $ "flameshot gui")           -- %! Open flameshot for screenshots
