@@ -1,5 +1,4 @@
 # dotfiles
-
 This repository contains the config files for my Linux set up. 
 I am using NixOS.
 
@@ -8,6 +7,9 @@ I am using NixOS.
 * Alacritty for the terminal
 * Bash 
 * NeoVim as the text editor 
+
+## Directory navigation
+* `config/` is `~/.config`
 
 ## Notes
  * (NO LONGER IN USE -- I use the default Arch Linux package which seems to be working well these days :D) I followed [this guy's](https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/) tutorial to install XMonad with stack. Here's a short summary of what to do to get this repo working:
