@@ -1,7 +1,7 @@
-# Jared's Config Files
+# dotfiles
 
 This repository contains the config files for my Linux set up. 
-I run Artix currently
+I am using NixOS.
 
 ## Features
 * XMonad as the windows manager

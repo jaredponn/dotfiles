@@ -187,11 +187,8 @@ configKeys conf@(XConfig {X.modMask = modMask}) = (`M.union` X.keys X.def conf) 
     , ( (modMask              , xK_b     ), spawn $ "chromium") -- %! Launch browser
     , ( (modMask .|. shiftMask, xK_b     ), spawn $ "chromium --incognito") -- %! Launch browser
     , ( (modMask              , xK_x     ), spawn $ "xournalpp")                -- %! Launch xournalpp
-    , ( (modMask              , xK_d     )
-        , spawn $ "source ~/.xmonad/xmonadDmenu.sh"
-      ) -- %! runs dmenu from the script
-    , ( (noModMask            , xK_Print ), spawn $ "flameshot gui")           
-        -- %! Open flameshot for screenshots
+
+    , ( (noModMask            , xK_Print ), spawn $ "flameshot gui")           -- %! Open flameshot for screenshots
 
     -- , ((modMask,               xK_p     ), spawn "dmenu_run") -- %! Launch dmenu
     -- , ((modMask .|. shiftMask, xK_p     ), spawn "gmrun") -- %! Launch gmrun
