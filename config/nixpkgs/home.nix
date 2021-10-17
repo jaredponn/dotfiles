@@ -54,6 +54,9 @@
     extraPackages = self: [ ];
   };
 
+  # xinitrc
+  home.file.".xinitrc".text = builtins.readFile ~/dotfiles/xinitrc;
+
   # Neovim
   programs.neovim = {
     enable = true;
@@ -67,6 +70,7 @@
     enable = true;
     initExtra = builtins.readFile ~/dotfiles/bashrc;
   };
+
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
