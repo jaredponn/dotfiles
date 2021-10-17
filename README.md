@@ -7,7 +7,7 @@ I am using NixOS.
 * XMonad as the windows manager
 * Alacritty for the terminal
 * Bash 
-* NeoVim as the text editor (config file not in use currently)
+* NeoVim as the text editor 
 
 ## Notes
  * (NO LONGER IN USE -- I use the default Arch Linux package which seems to be working well these days :D) I followed [this guy's](https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/) tutorial to install XMonad with stack. Here's a short summary of what to do to get this repo working:
