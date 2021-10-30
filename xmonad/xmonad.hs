@@ -185,10 +185,10 @@ configKeys conf@(XConfig {X.modMask = modMask}) = (`M.union` X.keys X.def conf) 
         
         ) -- %! Launch terminal at previous terminal directory if it exists.
     -- Old times we used chromium
-    -- , ( (modMask              , xK_b     ), spawn $ "chromium") -- %! Launch browser
-    -- , ( (modMask .|. shiftMask, xK_b     ), spawn $ "chromium --incognito") -- %! Launch browser
-    , ( (modMask              , xK_b     ), spawn $ "qutebrowser") -- %! Launch browser
-    , ( (modMask .|. shiftMask, xK_b     ), spawn $ "qutebrowser --target private-window") -- %! Launch browser
+    , ( (modMask              , xK_b     ), spawn $ "chromium") -- %! Launch browser
+    , ( (modMask .|. shiftMask, xK_b     ), spawn $ "chromium --incognito") -- %! Launch browser
+    -- , ( (modMask              , xK_b     ), spawn $ "qutebrowser") -- %! Launch browser
+    -- , ( (modMask .|. shiftMask, xK_b     ), spawn $ "qutebrowser --target private-window") -- %! Launch browser
 
     , ( (modMask              , xK_x     ), spawn $ "xournalpp")                -- %! Launch xournalpp
 

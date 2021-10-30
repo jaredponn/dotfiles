@@ -16,6 +16,7 @@
 
   networking.hostName = "pletbjerg"; # Define your hostname.
   networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.wireless.interfaces = [ "wlp3s0" ];  
 
   # Set your time zone.
   time.timeZone = "America/Edmonton";
@@ -95,17 +96,27 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    w3m
     firefox
 
     # Wacom
     xf86_input_wacom
   ];
 
-  
+  # Extra nix options
+  nix = {
+    package = pkgs.nixUnstable;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
+
   # Some alias for the whole system
   environment.interactiveShellInit = ''
-    alias nixosrc="sudo nvim /etc/nixos/configuration.nix"
-    alias dim="sudo light -S 30"
+    # We don't really use these anymore -- we shift this all to homemanager
+
+    # alias nixosrc="sudo nvim /etc/nixos/configuration.nix"
+    # alias dim="sudo light -S 30"
   '';
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -119,7 +130,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

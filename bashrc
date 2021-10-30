@@ -23,8 +23,9 @@ alias xmonadrc='n ~/dotfiles/xmonad/xmonad.hs'
 # xrandr --listactivemonitors
 # Then, with the wacom <ID> (should be a number), and the screen <SCREEN> run
 # xsetwacom set <ID> MapToOutput <SCREEN>
-alias tabletSetting0='xsetwacom set 12 MapToOutput eDP0'
-alias tabletSetting1='xsetwacom set 12 MapToOutput DP-1'
+alias tabletInfo='xrandr --listactivemonitors && xsetwacom list devices && echo "xsetwacom set 17 MapToOutput eDP-1"'
+alias tabletSetting0='xsetwacom set 17 MapToOutput eDP-1'
+alias tabletSetting1='xsetwacom set 17 MapToOutput DP-1'
 
 
 # Pretty showing where you are
@@ -62,3 +63,7 @@ export EDITOR="$VISUAL"
 # Actually, I'm pretty sure this only needs to be run once, not
 # every time I load the bashrc...
 xset s off -dpms
+
+# Entering a nix shell with a specific ghc version and package
+# nix-shell -p "haskell.packages.ghc884.ghcWithPackages (pkg : [pkg.vector])"
+# nix-shell -p "haskellPackages.ghcWithPackages (pkgs : [pkgs.diagrams])"
