@@ -15,24 +15,39 @@
     firefox
     chromium
     qutebrowser
+    mpv
+
+    # audio
+    pulsemixer
 
     # Utilities:
     wget
     git
     zip
+    pdfgrep
+    unzip
     arandr
     execline
+    xclip
+    ping
 
     # Haskell
+    gnumake
     stack
     ghc
+    cabal-install
+    haskellPackages.alex
+    haskellPackages.happy
 
     # Xournalpp
     xournalpp
     xournal
 
     # Latex / Zathura
-    texlive.combined.scheme-small
+    # texlive.combined.scheme-small
+    # We need the full tex live normally
+    texlive.combined.scheme-full
+
     zathura
 
     # screen shot
@@ -44,6 +59,17 @@
     # Windows manager / graphics
     xmobar
     paper-icon-theme
+
+    # Viewing images
+    imagemagick
+    feh
+
+    # additional man pages
+    man-pages 
+    man-pages-posix
+
+    # Battery life
+    acpi
     ];
 
   # XMonad
@@ -80,5 +106,8 @@
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "21.05";
+  home.stateVersion = "21.11";
 }
+
+# A thread on adding your own derivations.
+# https://www.reddit.com/r/NixOS/comments/kqnva3/how_do_you_create_derivations_from_within/

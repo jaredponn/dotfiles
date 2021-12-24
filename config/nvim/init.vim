@@ -21,8 +21,6 @@ set tabstop=4 shiftwidth=4 expandtab
 " copy and paste
 "set clipboard=unnamedplus
 
-" Setting the color scheme
-
 " editing vimrcs
 nnoremap <Leader>ev :tabnew $MYVIMRC<cr>
 nnoremap <Leader>sv :source ~/.config/nvim/init.vim <cr>

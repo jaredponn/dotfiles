@@ -40,16 +40,26 @@
   # };
 
   # Enable the X11 windowing system.
-  services.xserver= {
+  services.xserver = {
     # Sane defaults for X Server
     enable = true;
     autorun = false;
     displayManager.startx.enable = true;
     enableCtrlAltBackspace = true;
 
+    # Extra keyboard layouts
+    layout = "us,dvorak";
+    xkbOptions = "grp:alt_shift_toggle";
+
     # Enable touchpad support (enabled default in most desktopManager).
     libinput.enable = true;
     libinput.touchpad.tapping = false;
+
+    # Xmonad for the window manager
+    windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+    };
 
     # Wacom support
     wacom = {
@@ -73,7 +83,61 @@
     isNormalUser = true;
     initialPassword = "1234";
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    # Packages to use.. 
+    packages = with pkgs; [
+      # Web browsers:
+      firefox
+      chromium
+      qutebrowser
+      mpv
+
+      # audio
+      pulsemixer
+
+      # Utilities:
+      wget
+      git
+      zip
+      pdfgrep
+      unzip
+      arandr
+      execline
+      xclip
+      ping
+
+      # Xournalpp
+      xournalpp
+      xournal
+
+      # Latex / Zathura
+      # texlive.combined.scheme-small
+      # We need the full tex live normally
+      texlive.combined.scheme-full
+      zathura
+
+      # screen shot
+      flameshot
+
+      # terminal
+      alacritty
+
+      # Windows manager / graphics
+      xmobar
+      paper-icon-theme
+
+      # Viewing images
+      imagemagick
+      feh
+
+      # additional man pages
+      man-pages 
+      man-pages-posix
+
+      # Battery life
+      acpi
+    ];
   };
+
 
   # Basic extra programs
   programs = { 
@@ -81,6 +145,8 @@
     neovim = {
       defaultEditor = true;
       enable = true;
+      viAlias = true;
+      vimAlias = true;
     };
 
     # For screen brightness
@@ -104,18 +170,10 @@
   ];
 
   # Extra nix options
-  nix = {
-    package = pkgs.nixUnstable;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-  };
 
   # Some alias for the whole system
   environment.interactiveShellInit = ''
-    # We don't really use these anymore -- we shift this all to homemanager
-
-    # alias nixosrc="sudo nvim /etc/nixos/configuration.nix"
+    alias nixosrc="sudo nvim /etc/nixos/configuration.nix"
     # alias dim="sudo light -S 30"
   '';
 
