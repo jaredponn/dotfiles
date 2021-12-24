@@ -9,11 +9,11 @@
       paths = [
 	# Neovim
         (neovim.override {
-	  viAlias = true;
-	  vimAlias = true;
+	      viAlias = true;
+	      vimAlias = true;
           configure = {
-  	    customRC = builtins.readFile ~/dotfiles/config/nvim/init.vim;
-  	  };
+  	        customRC = builtins.readFile ~/dotfiles/config/nvim/init.vim;
+  	      };
         })
 
         # Haskell
