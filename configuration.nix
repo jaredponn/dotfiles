@@ -2,6 +2,8 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
+# You can see different options for this at `man configuration.nix`
+
 { config, pkgs, ... }:
 
 {
@@ -49,7 +51,11 @@
 
     # Extra keyboard layouts
     layout = "us,dvorak";
-    xkbOptions = "grp:alt_shift_toggle";
+    # See 
+    #   @
+    #       vi $(nix-build --no-out-link '<nixpkgs>' -A xkeyboard_config)/etc/X11/xkb/rules/base.lst
+    #   @
+    xkbOptions = "grp:alt_space_toggle";
 
     # Enable touchpad support (enabled default in most desktopManager).
     libinput.enable = true;

@@ -7,7 +7,7 @@
     jaredPkgs = buildEnv {
       name = "jaredPkgs";
       paths = [
-	# Neovim
+	    # Neovim
         (neovim.override {
 	      viAlias = true;
 	      vimAlias = true;
@@ -16,18 +16,36 @@
   	      };
         })
 
-        # Haskell
+        # Common utilities
         gnumake
+        strace
+
+        # Xournalpp
+        xournalpp
+        xournal
+
+        # Haskell
         stack
         ghc
         cabal-install
         haskellPackages.alex
         haskellPackages.happy
 
-        jq
+        # Latex
+        texlive.combined.scheme-full
+        zathura
 
+        # Screen shot
+        flameshot
+
+        # Viewing images
+        imagemagick
+        feh
+
+        # man pages
+        man-pages 
+        man-pages-posix
       ];
-
 
       # Man pages
       pathsToLink = ["/share" "/bin"];
