@@ -16,9 +16,18 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Custom nixos build for raspberry pis:
+  # https://rbf.dev/blog/2020/05/custom-nixos-build-for-raspberry-pis/#flashing
+  # For the different architectures:
+  # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/system/boot/binfmt.nix
+  # boot.binfmt.emulatedSystems = [ "armv7l-linux" ];
+
   networking.hostName = "pletbjerg"; # Define your hostname.
   networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.wireless.interfaces = [ "wlp3s0" ];  
+
+  # DNS resolver
+  networking.nameservers = [ "1.1.1.1" ];
 
   # Set your time zone.
   time.timeZone = "America/Edmonton";
@@ -195,6 +204,15 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+
+  # This is for SSD speed or something...
+  services.fstrim.enable = true;
+
+
+  # Enable the Cron
+  services.cron = {
+    enable = true;
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

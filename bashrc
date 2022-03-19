@@ -13,6 +13,8 @@ alias pdflatex='pdflatex -interaction=nonstopmode'
 alias bashrc='n ~/dotfiles/bashrc'
 alias xmonadrc='n ~/dotfiles/xmonad/xmonad.hs'
 
+alias jaredrc='n ~/dotfiles/config/nixpkgs/config.nix'
+
 # alias dim='echo 2000 | sudo tee /sys/class/backlight/intel_backlight/brightness'
 
 # Setting up the wacom!!
@@ -23,6 +25,8 @@ alias xmonadrc='n ~/dotfiles/xmonad/xmonad.hs'
 # xrandr --listactivemonitors
 # Then, with the wacom <ID> (should be a number), and the screen <SCREEN> run
 # xsetwacom set <ID> MapToOutput <SCREEN>
+# You can also set button as follows:
+# xsetwacom set "Wacom Intuos PT M Pad pad" Button 1 "key ctrl shift p" && xsetwacom set "Wacom Intuos PT M Pad pad" Button 2 "key ctrl shift t"
 alias tabletInfo='xrandr --listactivemonitors && xsetwacom list devices && echo "xsetwacom set 17 MapToOutput eDP-1"'
 alias tabletSetting0='xsetwacom set 17 MapToOutput eDP-1'
 alias tabletSetting1='xsetwacom set 17 MapToOutput DP-1'
@@ -67,3 +71,7 @@ xset s off -dpms
 # Entering a nix shell with a specific ghc version and package
 # nix-shell -p "haskell.packages.ghc884.ghcWithPackages (pkg : [pkg.vector])"
 # nix-shell -p "haskellPackages.ghcWithPackages (pkgs : [pkgs.diagrams])"
+
+# Getting eclipse going
+# nix-shell -p eclipses.eclipse-java
+# nix-shell -p openjdk eclipses.eclipse-java
