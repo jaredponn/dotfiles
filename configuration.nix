@@ -27,7 +27,11 @@
   networking.wireless.interfaces = [ "wlp3s0" ];  
 
   # DNS resolver
-  networking.nameservers = [ "1.1.1.1" ];
+  networking.nameservers = [ 
+        "8.8.8.8"  # google
+        "8.8.4.4"  # google
+        "1.1.1.1"  # cloudflare
+    ];
 
   # Set your time zone.
   time.timeZone = "America/Edmonton";
@@ -92,6 +96,10 @@
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
+
+  # 
+  hardware.enableRedistributableFirmware = true;
+
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.jared = {
